@@ -39,6 +39,9 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -203,6 +206,22 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
             int minsInt = (Integer.parseInt(arrM)-Integer.parseInt(timeM))*60;
             int secsInt = Integer.parseInt(arrS)-Integer.parseInt(timeS);
             int totMins = (hoursInt + minsInt + secsInt)/60;
+            String tz = TimeZone.getDefault().toString();
+            if (tz.contains("ADT")) {
+                totMins = totMins - 1440;
+                totMins = totMins + 120;
+            } else if (tz.contains("EDT")) {
+                totMins = totMins - 1440;
+                totMins = totMins + 60;
+            } else if (tz.contains("MDT")) {
+                totMins = totMins - 60;
+            } else if (tz.contains("PDT")) {
+                totMins = totMins - 120;
+            } else if (tz.contains("AKDT")) {
+                totMins = totMins - 180;
+            } else if (tz.contains("HADT")) {
+                totMins = totMins + 180;
+            }
             if (totMins < 0) {
                 totMins = totMins + 1440;
             }

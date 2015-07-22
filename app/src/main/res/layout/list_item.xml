@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="16dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_margin="16dp"
     android:layout_height="match_parent">
 
     <View
@@ -26,3 +34,4 @@
         android:layout_marginRight="6dp"
         />
 </LinearLayout>
+    </android.support.v7.widget.CardView>

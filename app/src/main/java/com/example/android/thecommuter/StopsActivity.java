@@ -1,7 +1,9 @@
 package com.example.android.thecommuter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,7 +15,29 @@ public class StopsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_stops);
+
+        long positionId = -1;
+        if (getIntent().getExtras() != null) {
+            positionId = getIntent().getExtras().getLong(Intent.EXTRA_TEXT);
+        }
+
+        String line = "";
+        if (positionId == 0) { line = "Red Line"; }
+        else if (positionId == 1) { line = "Blue Line"; }
+        else if (positionId == 2) { line = "Brown Line"; }
+        else if (positionId == 3) { line = "Green Line"; }
+        else if (positionId == 4) { line = "Orange Line"; }
+        else if (positionId == 5) { line = "Purple Line"; }
+        else if (positionId == 6) { line = "Pink Line"; }
+        else if (positionId == 7) { line = "Yellow Line"; }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle(line);
+            setSupportActionBar(toolbar);
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new StopsFragment())

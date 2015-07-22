@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,56 +31,17 @@ public class ArrivalsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arrivals);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new ArrivalsFragment())
                     .commit();
         }
-        /*
-        Intent intent = getIntent();
-        final int lineId = (int) intent.getExtras().getLong("Line");
-        final int stopId = (int) intent.getExtras().getLong(Intent.EXTRA_TEXT);
-        String line;
-
-        if (lineId == 0)
-            line = "Red";
-        else if (lineId == 1)
-            line = "Blue";
-        else if (lineId == 2)
-            line = "Brn";
-        else if (lineId == 3)
-            line = "G";
-        else if (lineId == 4)
-            line = "Org";
-        else if (lineId == 5)
-            line = "P";
-        else if (lineId == 6)
-            line = "Pink";
-        else if (lineId == 7)
-            line = "Y";
-        else {
-            line = "";
-        }
-
-
-        provider = new SubwayProvider();
-
-        // Create the account type and default account
-        mAccount = new Account("dummyaccount", "test.example.com");
-        AccountManager accountManager = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
-        // If the account already exists no harm is done but
-        // a warning will be logged.
-        accountManager.addAccountExplicitly(mAccount, null, null);
-
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        settingsBundle.putString("station", stationIds[lineId][stopId]);
-        settingsBundle.putString("line", line);
-
-        ContentResolver.setSyncAutomatically(mAccount, SubwayContract.AUTHORITY, true);
-        ContentResolver.requestSync(mAccount, SubwayContract.AUTHORITY, settingsBundle);
-        */
     }
 
     @Override

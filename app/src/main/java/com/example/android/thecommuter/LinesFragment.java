@@ -14,8 +14,8 @@ import android.widget.Spinner;
  * Created by Shubhang on 2/16/2015.
  */
 public class LinesFragment extends Fragment {
-    int[] icons = {R.drawable.red_circle, R.drawable.blue_circle, R.drawable.brown_circle, R.drawable.green_circle,
-            R.drawable.orange_circle, R.drawable.purple_circle, R.drawable.pink_circle, R.drawable.yellow_circle};
+    int[] images = {R.drawable.red_line, R.drawable.blue_line, R.drawable.brown_line, R.drawable.green_line, R.drawable.orange_line,
+                R.drawable.purple_line, R.drawable.pink_line, R.drawable.yellow_line};
     String[] lines = {"Red Line", "Blue Line", "Brown Line", "Green Line", "Orange Line", "Purple Line", "Pink Line", "Yellow Line"};
 
     ListView list;
@@ -26,7 +26,7 @@ public class LinesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
-        LineAdapter adapter = new LineAdapter(getActivity().getApplicationContext(), icons, lines);
+        LineAdapter adapter = new LineAdapter(getActivity().getApplicationContext(), images, lines);
         list = (ListView) rootView.findViewById(R.id.lines_list_view);
         list.setAdapter(adapter);
 

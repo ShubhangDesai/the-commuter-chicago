@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -120,6 +121,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+
         if (findViewById(R.id.container) != null) {
             TABLET = false;
 
@@ -127,54 +133,6 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.container, new LinesFragment())
                         .commit();
-            }
-        } else {
-            ActionBar mActionBar = getSupportActionBar();
-            mActionBar.setDisplayShowHomeEnabled(false);
-            mActionBar.setDisplayShowTitleEnabled(false);
-            LayoutInflater mInflater = getLayoutInflater();
-            View mCustomView = mInflater.inflate(R.layout.action_bar_tablet, null);
-            mActionBar.setCustomView(mCustomView);
-            mActionBar.setDisplayShowCustomEnabled(true);
-
-            TABLET = true;
-            if (savedInstanceState == null) {
-                Bundle stopsBundle = new Bundle();
-                stopsBundle.putLong("lineId", 0);
-
-                StopsFragment stopsFragment = new StopsFragment();
-                stopsFragment.setArguments(stopsBundle);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.add(R.id.tablet_stops_container, stopsFragment);
-                transaction.commit();
-
-                startSync(0, 0);
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.tablet_arrivals_container, new ArrivalsFragment())
-                        .commit();
-
-                spinner = (Spinner) findViewById(R.id.lines_spinner);
-                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterViewCompat, View view, int i, long l) {
-                        Bundle stopsBundle = new Bundle();
-                        stopsBundle.putLong("lineId", l);
-
-                        StopsFragment stopsFragment = new StopsFragment();
-                        stopsFragment.setArguments(stopsBundle);
-
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.tablet_stops_container, stopsFragment)
-                                .addToBackStack(null)
-                                .commit();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterViewCompat) {
-
-                    }
-                });
             }
         }
     }

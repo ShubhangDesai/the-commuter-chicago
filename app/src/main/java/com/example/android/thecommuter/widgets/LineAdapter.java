@@ -1,4 +1,4 @@
-package com.example.android.thecommuter;
+package com.example.android.thecommuter.widgets;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.android.thecommuter.R;
 
 /**
  * Created by Shubhang on 2/16/2015.

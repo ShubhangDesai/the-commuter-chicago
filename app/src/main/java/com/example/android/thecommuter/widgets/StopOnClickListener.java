@@ -20,6 +20,7 @@ public class StopOnClickListener implements View.OnClickListener  {
     Context mContext;
     RecyclerView mRecyclerView;
     int mLineId;
+    String lineTxt;
 
     String[][] stationIds = {//Red stops
             new String[] {"40900", "41190", "40100", "41300", "40760", "40880", "41380", "40340", "41200",
@@ -71,32 +72,41 @@ public class StopOnClickListener implements View.OnClickListener  {
         startSync(stopId);
         Intent intent = new Intent(mContext, ArrivalsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId]);
+        intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId] + " (" + lineTxt + ")");
+        intent.putExtra("lineId", mLineId);
         mContext.startActivity(intent);
     }
 
     public void startSync(int stopId) {
-
         String line;
 
-        if (mLineId == 0)
+        if (mLineId == 0) {
             line = "Red";
-        else if (mLineId == 1)
+            lineTxt = "Red";
+        } else if (mLineId == 1) {
             line = "Blue";
-        else if (mLineId == 2)
+            lineTxt = "Blue";
+        } else if (mLineId == 2) {
             line = "Brn";
-        else if (mLineId == 3)
+            lineTxt = "Brown";
+        } else if (mLineId == 3) {
             line = "G";
-        else if (mLineId == 4)
+            lineTxt = "Green";
+        } else if (mLineId == 4) {
             line = "Org";
-        else if (mLineId == 5)
+            lineTxt = "Orange";
+        } else if (mLineId == 5) {
             line = "P";
-        else if (mLineId == 6)
+            lineTxt = "Purple";
+        } else if (mLineId == 6) {
             line = "Pink";
-        else if (mLineId == 7)
+            lineTxt = "Pink";
+        } else if (mLineId == 7) {
             line = "Y";
-        else {
+            lineTxt = "Yellow";
+        } else {
             line = "";
+            lineTxt = "";
         }
 
         SubwayProvider provider = new SubwayProvider();

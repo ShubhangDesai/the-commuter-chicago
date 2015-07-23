@@ -1,8 +1,7 @@
-package com.example.android.thecommuter;
+package com.example.android.thecommuter.widgets;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.android.thecommuter.widgets.StopOnClickListener;
+import com.example.android.thecommuter.R;
 
 /**
  * Created by Shubhang on 2/16/2015.

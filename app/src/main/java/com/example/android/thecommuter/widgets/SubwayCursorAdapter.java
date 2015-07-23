@@ -1,4 +1,4 @@
-package com.example.android.thecommuter;
+package com.example.android.thecommuter.widgets;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.thecommuter.R;
 import com.example.android.thecommuter.data.SubwayContract;
 
 /**

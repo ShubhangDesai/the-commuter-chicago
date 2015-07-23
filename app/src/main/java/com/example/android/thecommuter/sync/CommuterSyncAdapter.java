@@ -225,7 +225,11 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
             if (totMins < 0) {
                 totMins = totMins + 1440;
             }
-            mins = Integer.toString(totMins) + " mins";
+            if (totMins == 0) {
+                mins = "Due";
+            } else {
+                mins = Integer.toString(totMins) + " mins";
+            }
 
             ContentValues values = new ContentValues();
             values.put(SubwayContract.ROUTE_IMG, rtIcon);

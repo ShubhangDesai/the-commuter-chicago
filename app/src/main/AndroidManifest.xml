@@ -19,10 +19,16 @@
         <activity
             android:name="com.example.android.thecommuter.StopsActivity"
             android:label="@string/stops" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.thecommuter.MainActivity" />
         </activity>
         <activity
             android:name="com.example.android.thecommuter.ArrivalsActivity"
             android:label="@string/arrivals" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.thecommuter.StopsActivity" />
         </activity>
         <provider
             android:name="com.example.android.thecommuter.data.SubwayProvider"
@@ -59,4 +65,6 @@
         android:name="android.permission.WRITE_SYNC_SETTINGS"/>
     <uses-permission
         android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

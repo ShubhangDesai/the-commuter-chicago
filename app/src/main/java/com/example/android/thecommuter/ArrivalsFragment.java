@@ -1,7 +1,9 @@
 package com.example.android.thecommuter;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.database.Cursor;
@@ -9,12 +11,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleCursorAdapter;
 
 import com.example.android.thecommuter.data.SubwayContract;
 import com.example.android.thecommuter.widgets.CustomList;
+import com.example.android.thecommuter.widgets.SubwayCursorAdapter;
 
 /**
  * Created by Shubhang on 2/7/2015.
@@ -35,11 +38,12 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
 
 
         if (toolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
             if (getActivity().getIntent().getExtras() != null) {
                 String stop = getActivity().getIntent().getExtras().getString(Intent.EXTRA_TEXT);
-                toolbar.setTitle(stop);
+                CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+                collapsingToolbar.setTitle(stop);
                 ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
         }
 
@@ -84,4 +88,24 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) { mAdapter.swapCursor(null); }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.home) {
+            int lineId = getActivity().getIntent().getExtras().getInt("lineId");
+            Intent intent = new Intent(getActivity().getApplicationContext(), StopsActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, lineId);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

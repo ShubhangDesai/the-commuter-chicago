@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.android.thecommuter.widgets.StopAdapter;
+
 /**
  * Created by Shubhang on 2/17/2015.
  */
@@ -103,13 +105,8 @@ public class StopsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final long lineId;
-
-        if (!MainActivity.TABLET) {
             Intent intent = getActivity().getIntent();
             lineId = intent.getExtras().getLong(Intent.EXTRA_TEXT);
-        } else {
-            lineId = getArguments().getLong("lineId");
-        }
 
         View rootView = inflater.inflate(R.layout.fragment_stops, container, false);
 

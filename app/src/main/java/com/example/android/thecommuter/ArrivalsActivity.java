@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -61,8 +62,12 @@ public class ArrivalsActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else {
+            int lineId = getIntent().getExtras().getInt("lineId");
+            Intent intent = new Intent(this, StopsActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, lineId);
+            startActivity(intent);
+            return true;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,8 +1,9 @@
 package com.example.android.thecommuter;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentResolver;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -10,19 +11,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Spinner;
 
-import com.example.android.thecommuter.data.SubwayContract;
-import com.example.android.thecommuter.data.SubwayProvider;
+import java.util.Calendar;
 
 
 public class MainActivity extends ActionBarActivity {
     public static DrawerLayout mDrawerLayout;
+    public static boolean running = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        running = true;
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -60,6 +61,12 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        running = false;
     }
 
     public void setDrawerLayout(DrawerLayout drawerLayout) {

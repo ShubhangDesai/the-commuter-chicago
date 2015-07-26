@@ -1,4 +1,4 @@
-package com.example.android.thecommuter.widgets;
+package com.example.android.thecommuter.adapters;
 
 import android.content.Context;
 import android.database.Cursor;

@@ -1,4 +1,4 @@
-package com.example.android.thecommuter.widgets;
+package com.example.android.thecommuter.adapters;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -12,6 +12,9 @@ import android.view.View;
 import com.example.android.thecommuter.ArrivalsActivity;
 import com.example.android.thecommuter.data.SubwayContract;
 import com.example.android.thecommuter.data.SubwayProvider;
+import com.example.android.thecommuter.managers.FavoritesManager;
+
+import java.util.HashMap;
 
 /**
  * Created by Shubhang on 7/20/2015.
@@ -21,8 +24,11 @@ public class StopOnClickListener implements View.OnClickListener  {
     RecyclerView mRecyclerView;
     int mLineId;
     String lineTxt;
+    boolean favorite = false;
+    int stopId;
+    FavoritesManager favoritesManager;
 
-    String[][] stationIds = {//Red stops
+    private static String[][] stationIds = {//Red stops
             new String[] {"40900", "41190", "40100", "41300", "40760", "40880", "41380", "40340", "41200",
                     "40770", "40540", "40080", "41420", "41320", "41220", "40650", "40630", "41450",
                     "40330", "41660", "41090", "40560", "41490", "41400", "41000", "40190", "41230",
@@ -64,11 +70,13 @@ public class StopOnClickListener implements View.OnClickListener  {
         mRecyclerView = recyclerView;
         mLineId = lineId;
         mStops = stops;
+        favoritesManager = new FavoritesManager(context);
+        if (lineId == -1) { favorite = true; }
     }
 
     @Override
     public void onClick(View v) {
-        int stopId = mRecyclerView.getChildPosition(v);
+        stopId = mRecyclerView.getChildPosition(v);
         startSync(stopId);
         Intent intent = new Intent(mContext, ArrivalsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -79,6 +87,10 @@ public class StopOnClickListener implements View.OnClickListener  {
 
     public void startSync(int stopId) {
         String line;
+
+        if (favorite) {
+            mLineId = favoritesManager.getLines().get(stopId);
+        }
 
         if (mLineId == 0) {
             line = "Red";
@@ -121,10 +133,15 @@ public class StopOnClickListener implements View.OnClickListener  {
         Bundle settingsBundle = new Bundle();
         settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
         settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        settingsBundle.putString("station", stationIds[mLineId][stopId]);
+        if (!favorite) { settingsBundle.putString("station", stationIds[mLineId][stopId]); }
+        else { settingsBundle.putString("station", favoritesManager.getStationIds().get(stopId)); }
         settingsBundle.putString("line", line);
 
         ContentResolver.setSyncAutomatically(mAccount, SubwayContract.AUTHORITY, true);
         ContentResolver.requestSync(mAccount, SubwayContract.AUTHORITY, settingsBundle);
+    }
+
+    public static String getStation(int lineId, int stopId) {
+        return stationIds[lineId][stopId];
     }
 }

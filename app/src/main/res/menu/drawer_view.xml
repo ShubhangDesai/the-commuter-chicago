@@ -22,7 +22,7 @@
             android:icon="@drawable/ic_dashboard"
             android:title="Lines" />
         <item
-            android:id="@+id/nav_messages"
+            android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_event"
             android:title="Favorites" />
     </group>
@@ -30,9 +30,11 @@
     <item android:title="This app">
         <menu>
             <item
+                android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_dashboard"
                 android:title="Settings" />
             <item
+                android:id="@+id/nav_about"
                 android:icon="@drawable/ic_forum"
                 android:title="About" />
         </menu>

@@ -1,4 +1,4 @@
-package com.example.android.thecommuter.widgets;
+package com.example.android.thecommuter.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.thecommuter.R;
+import com.example.android.thecommuter.managers.FavoritesManager;
 
 /**
  * Created by Shubhang on 2/16/2015.
@@ -22,15 +23,19 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
     String[] lines;
     RecyclerView recyclerView;
     int lineId;
+    FavoritesManager favoritesManager;
+    boolean favorite = false;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
         public ImageView mImageView;
+        public ImageView mStar;
 
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView) v.findViewById(R.id.line_name);
             mImageView = (ImageView) v.findViewById(R.id.line_img);
+            mStar = (ImageView) v.findViewById(R.id.star);
         }
     }
 
@@ -40,12 +45,19 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
         this.lines = lines;
         this.recyclerView = recyclerView;
         this.lineId = lineId;
+        favoritesManager = new FavoritesManager(context);
+        if (lineId == -1) {
+            favorite = true;
+        }
     }
 
     @Override
     public StopAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_card_item, parent, false);
         v.setOnClickListener(new StopOnClickListener(context, recyclerView, lineId, lines));
+        ImageView star = (ImageView) v.findViewById(R.id.star);
+
+        star.setOnClickListener(new FavoriteOnClickListener(context, recyclerView, lineId, lines));
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -54,8 +66,14 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
         holder.mTextView.setText(lines[position]);
         holder.mImageView.setImageResource(images[position]);
+        if (favoritesManager.isFavorite(lineId, position) || favorite) {
+            holder.mStar.setImageResource(R.drawable.ic_star_gold);
+        } else {
+            holder.mStar.setImageResource(R.drawable.ic_star);
+        }
 
         View cv = (View) holder.mImageView.getParent().getParent();
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) cv.getLayoutParams();

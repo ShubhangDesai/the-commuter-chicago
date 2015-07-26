@@ -9,94 +9,94 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.thecommuter.widgets.StopAdapter;
+import com.example.android.thecommuter.adapters.StopAdapter;
 
 /**
  * Created by Shubhang on 2/17/2015.
  */
 public class StopsFragment extends Fragment {
     //Red Line info
-    int[] iconsRed = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsRed = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
     R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
     R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsRed = {"Howard", "Jarvis", "Morse", "Loyola", "Granville", "Thorndale", "Bryn Mawr", "Berwyn", "Argyle", "Lawrence",
+    public static String[] stopsRed = {"Howard", "Jarvis", "Morse", "Loyola", "Granville", "Thorndale", "Bryn Mawr", "Berwyn", "Argyle", "Lawrence",
     "Wilson", "Sheridon", "Addison", "Belmont", "Fullerton", "North/Clyborn", "Clark/Division", "Chicago", "Grand", "Lake", "Monroe",
     "Jackson", "Harrison", "Roosevelt", "Cermak-Chinatown", "Sox/35th", "47th", "Garfield", "63rd", "69th", "79th", "87th", "95th/Dan Ryan"};
 
     //Blue Line info
-    int[] iconsBlue = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsBlue = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsBlue = {"O'Hare", "Rosemont", "Cumberland", "Harlem (O'Hare)", "Jefferson Park", "Montrose", "Irving Park", "Addison",
+    public static String[] stopsBlue = {"O'Hare", "Rosemont", "Cumberland", "Harlem (O'Hare)", "Jefferson Park", "Montrose", "Irving Park", "Addison",
     "Belmont", "Logan Square", "California", "Western (O'Hare)", "Damen", "Division", "Chicago", "Grand", "Clark/Lake", "Washington", "Monroe",
     "Jackson", "LaSalle", "Clinton", "UIC-Halsted", "Racine", "Illinois Medical District", "Western (Forest Park)", "Kedzie-Homam", "Pulaski", "Cicero", "Austin",
     "Oak Park", "Harlem (Forest Park)", "Forest Park"};
 
     //Brown Line info
-    int[] iconsBrown = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsBrown = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsBrown = {"Kimball","Kedzie", "Francisco", "Rockwell", "Western", "Damen", "Montrose", "Ivring Park", "Addison",
+    public static String[] stopsBrown = {"Kimball","Kedzie", "Francisco", "Rockwell", "Western", "Damen", "Montrose", "Ivring Park", "Addison",
     "Paulina", "Southport", "Belmont", "Wellington", "Diversey", "Fullerton", "Armitage", "Sedgwick", "Chicago", "Merchandise Mart",
     "Washington/Wells", "Quincy/Wells", "LaSalle/Van Buren", "Harold Washington Library-State/Van Buren", "Adams/Wabash", "Madison/Wabash",
     "Randolph/Wabash", "State/Lake", "Clark/Lake"};
 
     //Green Line info
-    int[] iconsGreen = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsGreen = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsGreen = {"Harlem/Lake", "Oak Park", "Ridgeland", "Austin", "Central", "Laramie", "Cicero", "Pulaski", "Conservatory",
+    public static String[] stopsGreen = {"Harlem/Lake", "Oak Park", "Ridgeland", "Austin", "Central", "Laramie", "Cicero", "Pulaski", "Conservatory",
     "Kedzie", "California", "Ashland", "Morgan", "Clinton", "Clark/Lake","State/Lake", "Randolph/Wabash", "Madison/Wabash", "Adams/Wabash",
     "Roosevelt", "35th-Bronzeville-IIT", "Indiana", "43rd", "47th", "51st", "Garfield", "King Drive", "Cottage Grove",
     "Halsted", "Ashland/63rd"};
 
     //Orange Line info
-    int[] iconsOrange = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsOrange = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsOrange = {"Midway", "Pulaski", "Kedzie", "Western", "35th/Archer", "Ashland", "Halsted", "Roosevelt", "Harold Washington Library-State/Van Buren",
+    public static String[] stopsOrange = {"Midway", "Pulaski", "Kedzie", "Western", "35th/Archer", "Ashland", "Halsted", "Roosevelt", "Harold Washington Library-State/Van Buren",
     "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells", "Clark/Lake", "State/Lake", "Randolph/Wabash", "Madison/Wabash", "Adams/Wabash"};
 
     //Purple Line info
-    int[] iconsPurple = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsPurple = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small};
-    String[] stopsPurple = {"Linden", "Central", "Noyes", "Foster", "Davis", "Dempster", "Main", "South Blvd", "Howard", "Belmont",
+    public static String[] stopsPurple = {"Linden", "Central", "Noyes", "Foster", "Davis", "Dempster", "Main", "South Blvd", "Howard", "Belmont",
     "Wellington", "Diversey", "Fullerton", "Armitage", "Sedgwick", "Chicago", "Merchandise Mart", "Clark/Lake", "State/Lake", "Randolph/Wabash",
     "Madison/Wabash", "Adams/Wabash", "Harold Washington Library-State/Van Buren", "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells"};
 
     //Pink Line info
-    int[] iconsPink = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsPink = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsPink = {"54th/Cermak", "Cicero", "Kostner", "Pulaski", "Central Park", "Kedzie", "California", "Western", "Damen",
+    public static String[] stopsPink = {"54th/Cermak", "Cicero", "Kostner", "Pulaski", "Central Park", "Kedzie", "California", "Western", "Damen",
     "18th", "Polk", "Ashland", "Morgan", "Clinton", "Clark/Lake", "State/Lake", "Randolph/Wabash", "Madison/Wabash", "Harold Washington Library-State/Van Buren",
     "Adams/Wabash", "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells"};
 
     //Yellow Line info
-    int[] iconsYellow = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
-    String[] stopsYellow = {"Skokie", "Oakton-Skokie", "Howard"};
+    public static int[] iconsYellow = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
+    public static String[] stopsYellow = {"Skokie", "Oakton-Skokie", "Howard"};
 
     int[] icons;
     String[] stops;

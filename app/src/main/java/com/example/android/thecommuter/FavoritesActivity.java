@@ -1,48 +1,36 @@
 package com.example.android.thecommuter;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewStub;
-import android.widget.ImageView;
-
-import com.example.android.thecommuter.data.SubwayContract;
-import com.example.android.thecommuter.data.SubwayProvider;
-import com.example.android.thecommuter.sync.CommuterSyncAdapter;
 
 /**
  * Created by Shubhang on 2/17/2015.
  */
-public class ArrivalsActivity extends ActionBarActivity {
-    SubwayProvider provider;
-    Account mAccount;
-    private static final String LOG_TAG = CommuterSyncAdapter.class.getSimpleName();
+public class FavoritesActivity extends ActionBarActivity {
+    public static DrawerLayout mDrawerLayout;
     public static boolean running = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         running = true;
-        setContentView(R.layout.activity_arrivals);
+        setContentView(R.layout.activity_stops);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
         }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ArrivalsFragment())
+                    .add(R.id.container, new FavoritesFragment())
                     .commit();
         }
     }
@@ -65,12 +53,10 @@ public class ArrivalsActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else {
-            long lineId = (long) getIntent().getExtras().getInt("lineId");
-            Intent intent = new Intent(this, StopsActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, lineId);
-            startActivity(intent);
-            return true;
+            mDrawerLayout.openDrawer(GravityCompat.START);
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -79,3 +65,4 @@ public class ArrivalsActivity extends ActionBarActivity {
         running = false;
     }
 }
+

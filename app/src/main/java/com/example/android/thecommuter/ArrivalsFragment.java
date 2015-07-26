@@ -3,7 +3,6 @@ package com.example.android.thecommuter;
 import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.database.Cursor;
@@ -17,7 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.android.thecommuter.data.SubwayContract;
 import com.example.android.thecommuter.widgets.CustomList;
-import com.example.android.thecommuter.widgets.SubwayCursorAdapter;
+import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
 
 /**
  * Created by Shubhang on 2/7/2015.
@@ -41,6 +40,7 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
             if (getActivity().getIntent().getExtras() != null) {
                 String stop = getActivity().getIntent().getExtras().getString(Intent.EXTRA_TEXT);
                 CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
+
                 collapsingToolbar.setTitle(stop);
                 ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);

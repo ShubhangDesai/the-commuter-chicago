@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.android.thecommuter.FavoritesActivity"
+            android:label="@string/favorites" >
+        </activity>
+        <activity
             android:name="com.example.android.thecommuter.StopsActivity"
             android:label="@string/stops" >
             <meta-data
@@ -55,6 +59,7 @@
             <meta-data android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
+        <receiver android:process=":remote" android:name="AlarmReceiver"></receiver>
     </application>
 
     <uses-permission

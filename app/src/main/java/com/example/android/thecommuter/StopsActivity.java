@@ -12,10 +12,12 @@ import android.view.MenuItem;
  * Created by Shubhang on 2/17/2015.
  */
 public class StopsActivity extends ActionBarActivity {
+    public static boolean running = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        running = true;
         setContentView(R.layout.activity_stops);
 
         long positionId = -1;
@@ -69,5 +71,11 @@ public class StopsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        running = false;
     }
 }

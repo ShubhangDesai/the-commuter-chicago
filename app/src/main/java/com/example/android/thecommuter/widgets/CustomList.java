@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
+
 /**
  * Created by Shubhang on 7/21/2015.
  */

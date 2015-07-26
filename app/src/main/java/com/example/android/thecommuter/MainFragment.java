@@ -1,11 +1,9 @@
 package com.example.android.thecommuter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,13 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.example.android.thecommuter.widgets.GPSTracker;
-import com.example.android.thecommuter.widgets.LineAdapter;
+import com.example.android.thecommuter.adapters.LineAdapter;
 
 /**
  * Created by Shubhang on 2/16/2015.
@@ -43,6 +37,23 @@ public class MainFragment extends Fragment {
 
         NavigationView navigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        menuItem.setChecked(true);
+                        int id = menuItem.getItemId();
+                        Intent intent;
+
+                        if (id == R.id.nav_favorites) {
+                            intent = new Intent(getActivity(), FavoritesActivity.class);
+                            startActivity(intent);
+                        }
+
+                        mDrawerLayout.closeDrawers();
+                        return true;
+                    }
+                });
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         if (toolbar != null) {

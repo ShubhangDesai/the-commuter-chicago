@@ -15,4 +15,5 @@
     <color name="primary_dark">#303F9F</color>
     <color name="accent">#FF5252</color>
     <color name="blue">#CC303F9F</color>
+    <color name="grey">#CCCFCFCF</color>
 </resources>

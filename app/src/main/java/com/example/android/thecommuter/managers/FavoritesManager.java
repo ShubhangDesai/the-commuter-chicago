@@ -56,7 +56,7 @@ public class FavoritesManager {
     public void removeFavorite(int line, String station, int image, String stationId) {
         int id = 0;
         for (int i = 0; i < mStationIds.size(); i++) {
-            if (mLines.get(i) == line && mStationIds.get(i).equals(stationId)) {
+            if (mLines.get(i) == line && mStationIds.get(i).equals(stationId) && !mRemove.get(i)) {
                 id = i;
                 break;
             }

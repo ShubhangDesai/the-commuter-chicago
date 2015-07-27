@@ -19,11 +19,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_dashboard"
+            android:icon="@drawable/ic_subway"
             android:title="Lines" />
         <item
             android:id="@+id/nav_favorites"
-            android:icon="@drawable/ic_event"
+            android:icon="@drawable/ic_favorite"
             android:title="Favorites" />
     </group>
 
@@ -31,11 +31,11 @@
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_dashboard"
+                android:icon="@drawable/ic_settings"
                 android:title="Settings" />
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_forum"
+                android:icon="@drawable/ic_info"
                 android:title="About" />
         </menu>
     </item>

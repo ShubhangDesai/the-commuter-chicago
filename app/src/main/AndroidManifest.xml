@@ -59,7 +59,7 @@
             <meta-data android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
-        <receiver android:process=":remote" android:name="AlarmReceiver"></receiver>
+        <receiver android:process=":remote" android:name=".location.AlarmReceiver"></receiver>
     </application>
 
     <uses-permission

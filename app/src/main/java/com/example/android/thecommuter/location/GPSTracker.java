@@ -1,4 +1,4 @@
-package com.example.android.thecommuter.adapters;
+package com.example.android.thecommuter.location;
 
 import android.app.AlertDialog;
 import android.app.Service;

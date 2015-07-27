@@ -5,14 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.android.thecommuter.AlarmReceiver;
-import com.example.android.thecommuter.R;
+import com.example.android.thecommuter.location.AlarmReceiver;
 import com.example.android.thecommuter.StopsFragment;
+import com.example.android.thecommuter.location.SubwayLocation;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -29,10 +27,12 @@ public class FavoritesManager {
     private static ArrayList<String> mStationIds = new ArrayList<>();
     private static HashMap<Integer, HashMap<Integer, Boolean>> mFavorites = new HashMap();
     private static ArrayList<Boolean> mRemove = new ArrayList();
+    private static ArrayList<SubwayLocation> mLocations = new ArrayList();
     Context mContext;
 
     public FavoritesManager(Context context) {
         mContext = context;
+        mLocations.add(0, new SubwayLocation(40.461979, -88.930405));
         read();
     }
 
@@ -50,7 +50,7 @@ public class FavoritesManager {
                 PendingIntent.FLAG_ONE_SHOT);
         long firstTime = c.getTimeInMillis();
         AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-        //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
     }
 
     public void removeFavorite(int line, String station, int image, String stationId) {
@@ -144,6 +144,10 @@ public class FavoritesManager {
         return -1;
     }
 
+    public static ArrayList<SubwayLocation> getLocations() {
+        return mLocations;
+    }
+
     private void write() {
         try {
             FileOutputStream fos = mContext.openFileOutput("LINES_FILE", Context.MODE_PRIVATE);
@@ -209,6 +213,15 @@ public class FavoritesManager {
     }
 
     public boolean isEmpty() {
-        return mLines.isEmpty();
+        if (mLines.isEmpty()) {
+            return true;
+        } else {
+            for (boolean b : mRemove) {
+                if (!b) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

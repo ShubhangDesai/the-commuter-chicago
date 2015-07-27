@@ -26,18 +26,55 @@ public class StopsActivity extends ActionBarActivity {
         }
 
         String line = "";
-        if (positionId == 0) { line = "Red Line"; }
-        else if (positionId == 1) { line = "Blue Line"; }
-        else if (positionId == 2) { line = "Brown Line"; }
-        else if (positionId == 3) { line = "Green Line"; }
-        else if (positionId == 4) { line = "Orange Line"; }
-        else if (positionId == 5) { line = "Purple Line"; }
-        else if (positionId == 6) { line = "Pink Line"; }
-        else if (positionId == 7) { line = "Yellow Line"; }
+        int primary = 0;
+        int secondary = 0;
+        if (positionId == 0) {
+            line = "Red Line";
+            primary = getApplicationContext().getResources().getColor(R.color.red_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.red_primary_dark);
+        }
+        else if (positionId == 1) {
+            line = "Blue Line";
+            primary = getApplicationContext().getResources().getColor(R.color.blue_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.blue_primary_dark);
+        }
+        else if (positionId == 2) {
+            line = "Brown Line";
+            primary = getApplicationContext().getResources().getColor(R.color.brown_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.brown_primary_dark);
+        }
+        else if (positionId == 3) {
+            line = "Green Line";
+            primary = getApplicationContext().getResources().getColor(R.color.green_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.green_primary_dark);
+        }
+        else if (positionId == 4) {
+            line = "Orange Line";
+            primary = getApplicationContext().getResources().getColor(R.color.orange_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.orange_primary_dark);
+        }
+        else if (positionId == 5) {
+            line = "Purple Line";
+            primary = getApplicationContext().getResources().getColor(R.color.purple_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.purple_primary_dark);
+        }
+        else if (positionId == 6) {
+            line = "Pink Line";
+            primary = getApplicationContext().getResources().getColor(R.color.pink_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.pink_primary_dark);
+        }
+        else if (positionId == 7) {
+            line = "Yellow Line";
+            primary = getApplicationContext().getResources().getColor(R.color.yellow_primary);
+            secondary = getApplicationContext().getResources().getColor(R.color.yellow_primary_dark);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitle(line);
+            toolbar.setBackgroundColor(primary);
+            if (android.os.Build.VERSION.SDK_INT >= 22)
+                getWindow().setStatusBarColor(secondary);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

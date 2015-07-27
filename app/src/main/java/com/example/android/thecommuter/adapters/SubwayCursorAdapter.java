@@ -32,14 +32,18 @@ public class SubwayCursorAdapter extends SimpleCursorAdapter {
 
         TextView id = (TextView) view.findViewById(R.id._id);
         TextView dest = (TextView) view.findViewById(R.id.arrival_dest);
+        TextView delay = (TextView) view.findViewById(R.id.delay);
         TextView time = (TextView) view.findViewById(R.id.arrival_time);
-        ImageView icon = (ImageView) view.findViewById(R.id.arrival_icon);
 
         id.setText(cursor.getString(cursor.getColumnIndex(SubwayContract._ID)));
         dest.setText(cursor.getString(cursor.getColumnIndex(SubwayContract.FINAL_STATION)));
         time.setText(cursor.getString(cursor.getColumnIndex(SubwayContract.ARRIVAL_TIME)));
-        int bgId = cursor.getInt(cursor.getColumnIndex(SubwayContract.ROUTE_IMG));
-        icon.setBackgroundResource(cursor.getInt(cursor.getColumnIndex(SubwayContract.ROUTE_IMG)));
+        delay.setText(cursor.getString(cursor.getColumnIndex(SubwayContract.DELAY)));
+        if (delay.getText().toString().equals("On Time")) {
+            delay.setTextColor(mContext.getResources().getColor(R.color.green));
+        } else {
+            delay.setTextColor(mContext.getResources().getColor(R.color.red));
+        }
 
         return view;
     }
@@ -48,12 +52,12 @@ public class SubwayCursorAdapter extends SimpleCursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView id = (TextView) view.findViewById(R.id._id);
         TextView dest = (TextView) view.findViewById(R.id.arrival_dest);
+        TextView delay = (TextView) view.findViewById(R.id.delay);
         TextView time = (TextView) view.findViewById(R.id.arrival_time);
-        ImageView icon = (ImageView) view.findViewById(R.id.arrival_icon);
 
         id.setText(cursor.getString(cursor.getColumnIndex(SubwayContract._ID)));
         dest.setText(cursor.getString(cursor.getColumnIndex(SubwayContract.FINAL_STATION)));
         time.setText(cursor.getString(cursor.getColumnIndex(SubwayContract.ARRIVAL_TIME)));
-        icon.setBackgroundResource(cursor.getInt(cursor.getColumnIndex(SubwayContract.ROUTE_IMG)));
+        delay.setText(cursor.getInt(cursor.getColumnIndex(SubwayContract.DELAY)));
     }
 }

@@ -23,8 +23,8 @@ import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
  */
 public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private final int URL_LOADER = 0;
-    private String[] mProjections = {SubwayContract._ID, SubwayContract.ROUTE_IMG, SubwayContract.FINAL_STATION, SubwayContract.ARRIVAL_TIME};
-    private int[] mTo = {R.id._id, R.id.arrival_icon, R.id.arrival_dest, R.id.arrival_time};
+    private String[] mProjections = {SubwayContract._ID, SubwayContract.ARRIVAL_TIME, SubwayContract.FINAL_STATION, SubwayContract.DELAY};
+    private int[] mTo = {R.id._id, R.id.arrival_time, R.id.arrival_dest, R.id.delay};
     private SubwayCursorAdapter mAdapter = null;
 
     @Override
@@ -35,13 +35,51 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) rootView.findViewById(R.id.toolbar);
 
+        long positionId = (long) getActivity().getIntent().getExtras().getInt("lineId");
+        int primary = 0;
+        int secondary = 0;
+        if (positionId == 0) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.red_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.red_primary_dark);
+        }
+        else if (positionId == 1) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.blue_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.blue_primary_dark);
+        }
+        else if (positionId == 2) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.brown_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.brown_primary_dark);
+        }
+        else if (positionId == 3) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.green_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.green_primary_dark);
+        }
+        else if (positionId == 4) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.orange_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.orange_primary_dark);
+        }
+        else if (positionId == 5) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.purple_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.purple_primary_dark);
+        }
+        else if (positionId == 6) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.pink_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.pink_primary_dark);
+        }
+        else if (positionId == 7) {
+            primary = getActivity().getApplicationContext().getResources().getColor(R.color.yellow_primary);
+            secondary = getActivity().getApplicationContext().getResources().getColor(R.color.yellow_primary_dark);
+        }
+
 
         if (toolbar != null) {
             if (getActivity().getIntent().getExtras() != null) {
                 String stop = getActivity().getIntent().getExtras().getString(Intent.EXTRA_TEXT);
                 CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
-
                 collapsingToolbar.setTitle(stop);
+                collapsingToolbar.setContentScrimColor(primary);
+                if (android.os.Build.VERSION.SDK_INT >= 22)
+                    getActivity().getWindow().setStatusBarColor(secondary);
                 ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }

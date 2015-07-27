@@ -96,6 +96,7 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
         String xml = null;
         Document doc = null;
         String rt;
+        String dly;
         String rtLetter;
         int rtIcon;
         String destNm;
@@ -164,26 +165,13 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
         for (int i = 0; i < nl.getLength(); i++) {
             Element e = (Element) nl.item(i);
 
-            NodeList rtNode = e.getElementsByTagName("rt");
-            rt = rtNode.item(0).getFirstChild().getNodeValue();
-            if (rt.equals("Red")) {
-                rtIcon = R.drawable.red_circle;
-            } else if (rt.equals("Blue")) {
-                rtIcon = R.drawable.blue_circle;
-            } else if (rt.equals("Brn")) {
-                rtIcon = R.drawable.brown_circle;
-            } else if (rt.equals("G")) {
-                rtIcon = R.drawable.green_circle;
-            } else if (rt.equals("Org")) {
-                rtIcon = R.drawable.orange_circle;
-            } else if (rt.equals("P")) {
-                rtIcon = R.drawable.purple_circle;
-            } else if (rt.equals("Pink")) {
-                rtIcon = R.drawable.pink_circle;
-            } else if (rt.equals("Y")) {
-                rtIcon = R.drawable.yellow_circle;
+            NodeList dlyNode = e.getElementsByTagName("isDly");
+            dly = dlyNode.item(0).getFirstChild().getNodeValue();
+
+            if (dly.equals("0")) {
+                dly = "On Time";
             } else {
-                rtIcon = R.drawable.white_circle;
+                dly = "Delayed";
             }
 
             NodeList destNmNode = e.getElementsByTagName("destNm");
@@ -226,13 +214,13 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
                 totMins = totMins + 1440;
             }
             if (totMins == 0) {
-                mins = "Due";
+                mins = "Arriving now";
             } else {
-                mins = Integer.toString(totMins) + " mins";
+                mins = "Arriving in " + Integer.toString(totMins) + " mins";
             }
 
             ContentValues values = new ContentValues();
-            values.put(SubwayContract.ROUTE_IMG, rtIcon);
+            values.put(SubwayContract.DELAY, dly);
             values.put(SubwayContract.FINAL_STATION, destNm);
             values.put(SubwayContract.ARRIVAL_TIME, mins);
             final Uri uri = mContentResolver.insert(SubwayContract.CONTENT_URI, values);

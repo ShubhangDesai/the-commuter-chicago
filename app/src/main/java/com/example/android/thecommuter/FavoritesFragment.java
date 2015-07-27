@@ -25,6 +25,13 @@ import java.util.ArrayList;
  */
 public class FavoritesFragment extends Fragment {
     DrawerLayout mDrawerLayout;
+    NavigationView navigationView;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        navigationView.getMenu().getItem(1).setChecked(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +48,7 @@ public class FavoritesFragment extends Fragment {
         mDrawerLayout = (DrawerLayout) rootView.findViewById(R.id.drawer_layout);
         FavoritesActivity.mDrawerLayout = mDrawerLayout;
 
-        NavigationView navigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+        navigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(1).setChecked(true);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

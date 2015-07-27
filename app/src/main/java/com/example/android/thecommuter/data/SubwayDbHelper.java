@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class SubwayDbHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 1;
-    public static final String DB_NAME = "cta_comm_db";
+    public static final String DB_NAME = "commuter_chicago_db";
 
     public SubwayDbHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -20,7 +20,7 @@ public class SubwayDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TEST_TABLE =
                 "CREATE TABLE " + SubwayContract.TABLE_NAME + " (" +
                         SubwayContract._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        SubwayContract.ROUTE_IMG + " INTEGER NOT NULL, " +
+                        SubwayContract.DELAY + " TEXT NOT NULL, " +
                         SubwayContract.FINAL_STATION + " TEXT NOT NULL, " +
                         SubwayContract.ARRIVAL_TIME + " TEXT NOT NULL);";
 

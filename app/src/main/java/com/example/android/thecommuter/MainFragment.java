@@ -1,6 +1,7 @@
 package com.example.android.thecommuter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,13 @@ public class MainFragment extends Fragment {
 
     ListView list;
     DrawerLayout mDrawerLayout;
+    NavigationView navigationView;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        navigationView.getMenu().getItem(0).setChecked(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +43,7 @@ public class MainFragment extends Fragment {
         mDrawerLayout = (DrawerLayout) rootView.findViewById(R.id.drawer_layout);
         MainActivity.mDrawerLayout = mDrawerLayout;
 
-        NavigationView navigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
+        navigationView = (NavigationView) rootView.findViewById(R.id.nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

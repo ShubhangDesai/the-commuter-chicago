@@ -82,6 +82,7 @@ public class StopOnClickListener implements View.OnClickListener  {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId] + " (" + lineTxt + ")");
         intent.putExtra("lineId", mLineId);
+        intent.putExtra("favorite", favorite);
         mContext.startActivity(intent);
     }
 

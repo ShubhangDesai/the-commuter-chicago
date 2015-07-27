@@ -2,6 +2,7 @@ package com.example.android.thecommuter.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -68,7 +69,20 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
         // - replace the contents of the view with that element
 
         holder.mTextView.setText(lines[position]);
+        holder.mTextView.setTextColor(Color.WHITE);
         holder.mImageView.setImageResource(images[position]);
+        if (favorite) {
+            int lineId = favoritesManager.getLines().get(position);
+            if (lineId == 0) { holder.mImageView.setColorFilter(Color.argb(89, 198, 12, 48)); }
+            else if (lineId == 1) { holder.mImageView.setColorFilter(Color.argb(89, 0, 161, 222)); }
+            else if (lineId == 2) { holder.mImageView.setColorFilter(Color.argb(170, 98, 54, 27)); }
+            else if (lineId == 3) { holder.mImageView.setColorFilter(Color.argb(89, 0, 155, 58)); }
+            else if (lineId == 4) { holder.mImageView.setColorFilter(Color.argb(117, 249, 70, 28)); }
+            else if (lineId == 5) { holder.mImageView.setColorFilter(Color.argb(137, 82, 35, 152)); }
+            else if (lineId == 6) { holder.mImageView.setColorFilter(Color.argb(150, 226, 126, 166)); }
+            else if (lineId == 7) { holder.mImageView.setColorFilter(Color.argb(89, 249, 227, 0)); }
+            else { holder.mImageView.setColorFilter(Color.argb(0, 255, 255, 255)); }
+        }
         if (favoritesManager.isFavorite(lineId, position) || favorite) {
             holder.mStar.setImageResource(R.drawable.ic_star_gold);
         } else {

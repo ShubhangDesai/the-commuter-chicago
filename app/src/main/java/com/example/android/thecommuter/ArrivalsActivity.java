@@ -28,12 +28,14 @@ public class ArrivalsActivity extends ActionBarActivity {
     Account mAccount;
     private static final String LOG_TAG = CommuterSyncAdapter.class.getSimpleName();
     public static boolean running = false;
+    boolean favorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         running = true;
         setContentView(R.layout.activity_arrivals);
+        favorite = getIntent().getExtras().getBoolean("favorite");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -65,11 +67,17 @@ public class ArrivalsActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         } else {
-            long lineId = (long) getIntent().getExtras().getInt("lineId");
-            Intent intent = new Intent(this, StopsActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, lineId);
-            startActivity(intent);
-            return true;
+            if (!favorite) {
+                long lineId = (long) getIntent().getExtras().getInt("lineId");
+                Intent intent = new Intent(this, StopsActivity.class);
+                intent.putExtra(Intent.EXTRA_TEXT, lineId);
+                startActivity(intent);
+                return true;
+            } else {
+                Intent intent = new Intent(this, FavoritesActivity.class);
+                startActivity(intent);
+                return true;
+            }
         }
     }
 

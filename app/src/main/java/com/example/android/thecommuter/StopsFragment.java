@@ -49,7 +49,7 @@ public class StopsFragment extends Fragment {
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
     public static String[] stopsBrown = {"Kimball","Kedzie", "Francisco", "Rockwell", "Western", "Damen", "Montrose", "Ivring Park", "Addison",
     "Paulina", "Southport", "Belmont", "Wellington", "Diversey", "Fullerton", "Armitage", "Sedgwick", "Chicago", "Merchandise Mart",
-    "Washington/Wells", "Quincy/Wells", "LaSalle/Van Buren", "Harold Washington Library-State/Van Buren", "Adams/Wabash", "Madison/Wabash",
+    "Washington/Wells", "Quincy/Wells", "LaSalle/Van Buren", "Library/Van Buren", "Adams/Wabash", "Madison/Wabash",
     "Randolph/Wabash", "State/Lake", "Clark/Lake"};
 
     //Green Line info
@@ -70,7 +70,7 @@ public class StopsFragment extends Fragment {
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small};
-    public static String[] stopsOrange = {"Midway", "Pulaski", "Kedzie", "Western", "35th/Archer", "Ashland", "Halsted", "Roosevelt", "Harold Washington Library-State/Van Buren",
+    public static String[] stopsOrange = {"Midway", "Pulaski", "Kedzie", "Western", "35th/Archer", "Ashland", "Halsted", "Roosevelt", "Library/Van Buren",
     "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells", "Clark/Lake", "State/Lake", "Randolph/Wabash", "Madison/Wabash", "Adams/Wabash"};
 
     //Purple Line info
@@ -82,7 +82,7 @@ public class StopsFragment extends Fragment {
             R.drawable.howard_small};
     public static String[] stopsPurple = {"Linden", "Central", "Noyes", "Foster", "Davis", "Dempster", "Main", "South Blvd", "Howard", "Belmont",
     "Wellington", "Diversey", "Fullerton", "Armitage", "Sedgwick", "Chicago", "Merchandise Mart", "Clark/Lake", "State/Lake", "Randolph/Wabash",
-    "Madison/Wabash", "Adams/Wabash", "Harold Washington Library-State/Van Buren", "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells"};
+    "Madison/Wabash", "Adams/Wabash", "Library/Van Buren", "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells"};
 
     //Pink Line info
     public static int[] iconsPink = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
@@ -91,7 +91,7 @@ public class StopsFragment extends Fragment {
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small};
     public static String[] stopsPink = {"54th/Cermak", "Cicero", "Kostner", "Pulaski", "Central Park", "Kedzie", "California", "Western", "Damen",
-    "18th", "Polk", "Ashland", "Morgan", "Clinton", "Clark/Lake", "State/Lake", "Randolph/Wabash", "Madison/Wabash", "Harold Washington Library-State/Van Buren",
+    "18th", "Polk", "Ashland", "Morgan", "Clinton", "Clark/Lake", "State/Lake", "Randolph/Wabash", "Madison/Wabash", "Library/Van Buren",
     "Adams/Wabash", "LaSalle/Van Buren", "Quincy/Wells", "Washington/Wells"};
 
     //Yellow Line info
@@ -105,8 +105,8 @@ public class StopsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final long lineId;
-            Intent intent = getActivity().getIntent();
-            lineId = intent.getExtras().getLong(Intent.EXTRA_TEXT);
+        Intent intent = getActivity().getIntent();
+        lineId = intent.getExtras().getLong(Intent.EXTRA_TEXT);
 
         View rootView = inflater.inflate(R.layout.fragment_stops, container, false);
 

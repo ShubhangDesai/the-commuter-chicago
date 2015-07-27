@@ -16,7 +16,7 @@ import com.example.android.thecommuter.adapters.StopAdapter;
  */
 public class StopsFragment extends Fragment {
     //Red Line info
-    public static int[] iconsRed = {R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
+    public static int[] iconsRed = {R.drawable.img_18th, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
     R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
     R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,
             R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small, R.drawable.howard_small,

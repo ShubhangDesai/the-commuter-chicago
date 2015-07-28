@@ -48,14 +48,14 @@ public class AlarmReceiver extends BroadcastReceiver {
     Context mContext;
     String mStation;
     String mLine;
-    int mWait = 60000; //Change this to 300000
+    int mWait = 15000; //Change this to 300000
 
     @Override
     public void onReceive(Context context, Intent intent) {
         mContext = context;
         FavoritesManager favoritesManager = new FavoritesManager(context);
         GPSTracker gps = new GPSTracker(context);
-        ArrayList<Loc> locations = favoritesManager.getLocations();
+        ArrayList<Loc> locations = FavoritesManager.getLocations();
         Calendar c = Calendar.getInstance();
 
         if (!favoritesManager.isEmpty()) {
@@ -65,6 +65,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             current.setLongitude(gps.getLongitude());
             int closest = 0; //Change to -1
             for (int i = 0; i < locations.size(); i++) {
+                Log.e("Tag", Integer.toString(locations.size()));
+                Log.e("Tag", Boolean.toString(FavoritesManager.getRemove().get(i)));
                 if (!FavoritesManager.getRemove().get(i)) {
                     Loc l = locations.get(i);
                     Location station = new Location("Pt B");
@@ -272,7 +274,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
 
                 if (totMins < 5) {
-                    mWait = totMins * 60000;
+                    //mWait = totMins * 60000;
                 }
                 result = destNm + ", " + mins;
             }

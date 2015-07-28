@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -32,7 +33,6 @@ public class FavoritesManager {
 
     public FavoritesManager(Context context) {
         mContext = context;
-        mLocations.add(0, new Loc(40.461979, -88.930405));
         read();
     }
 
@@ -42,6 +42,7 @@ public class FavoritesManager {
         mImages.add(image);
         mStationIds.add(stationId);
         mRemove.add(false);
+        mLocations.add(new Loc(40.461979, -88.930405));
         write();
 
         Calendar c = Calendar.getInstance();
@@ -104,6 +105,7 @@ public class FavoritesManager {
                     mImages.remove(i);
                     mStationIds.remove(i);
                     mRemove.remove(i);
+                    //mLocations.remove(i);
                     i--;
                 }
                 i++;

@@ -77,10 +77,30 @@ public class StopOnClickListener implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         stopId = mRecyclerView.getChildPosition(v);
-        startSync(stopId);
+        //startSync(stopId);
         Intent intent = new Intent(mContext, ArrivalsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (mLineId == 0) {
+            lineTxt = "Red";
+        } else if (mLineId == 1) {
+            lineTxt = "Blue";
+        } else if (mLineId == 2) {
+            lineTxt = "Brown";
+        } else if (mLineId == 3) {
+            lineTxt = "Green";
+        } else if (mLineId == 4) {
+            lineTxt = "Orange";
+        } else if (mLineId == 5) {
+            lineTxt = "Purple";
+        } else if (mLineId == 6) {
+            lineTxt = "Pink";
+        } else if (mLineId == 7) {
+            lineTxt = "Yellow";
+        } else {
+            lineTxt = "";
+        }
         intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId] + " (" + lineTxt + ")");
+        intent.putExtra("stationId", stationIds[mLineId][stopId]);
         intent.putExtra("lineId", mLineId);
         intent.putExtra("favorite", favorite);
         mContext.startActivity(intent);

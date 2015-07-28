@@ -34,6 +34,7 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
         View rootView = inflater.inflate(R.layout.fragment_arrivals, container, false);
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) rootView.findViewById(R.id.toolbar);
+        String lineId = "";
 
         long positionId = (long) getActivity().getIntent().getExtras().getInt("lineId");
         int primary = 0;
@@ -41,34 +42,42 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
         if (positionId == 0) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.red_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.red_primary_dark);
+            lineId = "Red";
         }
         else if (positionId == 1) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.blue_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.blue_primary_dark);
+            lineId = "Blue";
         }
         else if (positionId == 2) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.brown_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.brown_primary_dark);
+            lineId = "Brn";
         }
         else if (positionId == 3) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.green_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.green_primary_dark);
+            lineId = "G";
         }
         else if (positionId == 4) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.orange_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.orange_primary_dark);
+            lineId = "Org";
         }
         else if (positionId == 5) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.purple_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.purple_primary_dark);
+            lineId = "P";
         }
         else if (positionId == 6) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.pink_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.pink_primary_dark);
+            lineId = "Pink";
         }
         else if (positionId == 7) {
             primary = getActivity().getApplicationContext().getResources().getColor(R.color.yellow_primary);
             secondary = getActivity().getApplicationContext().getResources().getColor(R.color.yellow_primary_dark);
+            lineId = "Y";
         }
 
 
@@ -97,7 +106,10 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
                 mTo,
                 0
         );
-        customList.setAdapter(mAdapter);
+        //customList.setAdapter(mAdapter);
+
+        String stationId = getActivity().getIntent().getExtras().getString("stationId");
+        customList.addViews(stationId, lineId);
 
         return rootView;
     }

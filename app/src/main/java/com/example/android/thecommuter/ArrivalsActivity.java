@@ -1,32 +1,16 @@
 package com.example.android.thecommuter;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewStub;
-import android.widget.ImageView;
-
-import com.example.android.thecommuter.data.SubwayContract;
-import com.example.android.thecommuter.data.SubwayProvider;
-import com.example.android.thecommuter.sync.CommuterSyncAdapter;
 
 /**
  * Created by Shubhang on 2/17/2015.
  */
 public class ArrivalsActivity extends ActionBarActivity {
-    SubwayProvider provider;
-    Account mAccount;
-    private static final String LOG_TAG = CommuterSyncAdapter.class.getSimpleName();
     public static boolean running = false;
     boolean favorite;
 

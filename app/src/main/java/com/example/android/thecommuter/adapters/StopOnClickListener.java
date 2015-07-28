@@ -5,13 +5,10 @@ import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.android.thecommuter.ArrivalsActivity;
-import com.example.android.thecommuter.data.SubwayContract;
-import com.example.android.thecommuter.data.SubwayProvider;
 import com.example.android.thecommuter.managers.FavoritesManager;
 
 import java.util.HashMap;
@@ -77,7 +74,6 @@ public class StopOnClickListener implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         stopId = mRecyclerView.getChildPosition(v);
-        //startSync(stopId);
         Intent intent = new Intent(mContext, ArrivalsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (mLineId == 0) {
@@ -104,62 +100,6 @@ public class StopOnClickListener implements View.OnClickListener  {
         intent.putExtra("lineId", mLineId);
         intent.putExtra("favorite", favorite);
         mContext.startActivity(intent);
-    }
-
-    public void startSync(int stopId) {
-        String line;
-
-        if (favorite) {
-            mLineId = favoritesManager.getLines().get(stopId);
-        }
-
-        if (mLineId == 0) {
-            line = "Red";
-            lineTxt = "Red";
-        } else if (mLineId == 1) {
-            line = "Blue";
-            lineTxt = "Blue";
-        } else if (mLineId == 2) {
-            line = "Brn";
-            lineTxt = "Brown";
-        } else if (mLineId == 3) {
-            line = "G";
-            lineTxt = "Green";
-        } else if (mLineId == 4) {
-            line = "Org";
-            lineTxt = "Orange";
-        } else if (mLineId == 5) {
-            line = "P";
-            lineTxt = "Purple";
-        } else if (mLineId == 6) {
-            line = "Pink";
-            lineTxt = "Pink";
-        } else if (mLineId == 7) {
-            line = "Y";
-            lineTxt = "Yellow";
-        } else {
-            line = "";
-            lineTxt = "";
-        }
-
-        SubwayProvider provider = new SubwayProvider();
-
-        // Create the account type and default account
-        Account mAccount = new Account("dummyaccount", "test.example.com");
-        AccountManager accountManager = (AccountManager) mContext.getSystemService(mContext.ACCOUNT_SERVICE);
-        // If the account already exists no harm is done but
-        // a warning will be logged.
-        accountManager.addAccountExplicitly(mAccount, null, null);
-
-        Bundle settingsBundle = new Bundle();
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        settingsBundle.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        if (!favorite) { settingsBundle.putString("station", stationIds[mLineId][stopId]); }
-        else { settingsBundle.putString("station", favoritesManager.getStationIds().get(stopId)); }
-        settingsBundle.putString("line", line);
-
-        ContentResolver.setSyncAutomatically(mAccount, SubwayContract.AUTHORITY, true);
-        ContentResolver.requestSync(mAccount, SubwayContract.AUTHORITY, settingsBundle);
     }
 
     public static String getStation(int lineId, int stopId) {

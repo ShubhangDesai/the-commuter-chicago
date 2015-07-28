@@ -12,10 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.thecommuter.R;
-import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
-import com.example.android.thecommuter.sync.CommuterSyncAdapter;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,8 +45,8 @@ public class CustomList extends LinearLayout {
     Context mContext;
     String mLine;
     String mStation;
-    SubwayCursorAdapter mAdapter = null;
     CustomList mList;
+    String mToast;
     DataSetObserver observer = new DataSetObserver() {
         @Override
         public void onChanged() {
@@ -69,32 +68,10 @@ public class CustomList extends LinearLayout {
         mList = this;
     }
 
-    public void setAdapter(SubwayCursorAdapter adapter) {
-        if (mAdapter != null) {
-            mAdapter.unregisterDataSetObserver(observer);
-        }
-        mAdapter = adapter;
-        if (mAdapter != null) {
-            mAdapter.registerDataSetObserver(observer);
-        }
-        //addViews();
-    }
-
     //public void addViews() {
     public void addViews(String stationId, String lineId) {
         mStation = stationId;
         mLine = lineId;
-        /*
-        Cursor cursor = mAdapter.getCursor();
-        ArrayList<View> views = new ArrayList<>();
-
-        removeAllViews();
-
-        while (cursor != null && cursor.moveToNext()) {
-            views.add(mAdapter.newView(mContext, cursor, this));
-            //mAdapter.newView(mContext, cursor, this).findViewById(R.id.arrival_dest).toString();
-        }
-        */
         SubwayTask subwayTask = new SubwayTask();
         subwayTask.execute();
         ArrayList<View> views = new ArrayList<>();
@@ -105,25 +82,26 @@ public class CustomList extends LinearLayout {
             //do nothing
         }
 
-        views = sort(views);
+        if (views != null) {
+                views = sort(views);
 
-        String station = "";
-        final LayoutInflater inflater = LayoutInflater.from(mContext);
+                String station = "";
+                final LayoutInflater inflater = LayoutInflater.from(mContext);
 
-        for (int i = 0; i < views.size(); i++) {
-            String text = ((TextView) views.get(i).findViewById(R.id.arrival_dest)).getText().toString();
-            if (!text.equals(station)) {
-                station = text;
-                View header = inflater.inflate(R.layout.arrival_header, this, false);
-                ((TextView) header.findViewById(R.id.header_text)).setText(text);
-                ((TextView) header.findViewById(R.id.header_text)).setTextColor(getResources().getColor(R.color.abc_secondary_text_material_light));
-                addView(header);
-            }
-            addView(views.get(i));
-        }
-
-        if (!CommuterSyncAdapter.canSync()) {
-            removeAllViews();
+                for (int i = 0; i < views.size(); i++) {
+                    String text = ((TextView) views.get(i).findViewById(R.id.arrival_dest)).getText().toString();
+                    if (!text.equals(station)) {
+                        station = text;
+                        View header = inflater.inflate(R.layout.arrival_header, this, false);
+                        ((TextView) header.findViewById(R.id.header_text)).setText(text);
+                        ((TextView) header.findViewById(R.id.header_text)).setTextColor(getResources().getColor(R.color.abc_secondary_text_material_light));
+                        addView(header);
+                    }
+                    addView(views.get(i));
+                }
+        } else {
+            Toast toast = Toast.makeText(mContext, mToast, Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -197,12 +175,15 @@ public class CustomList extends LinearLayout {
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
+                mToast = "Internal error, try again later";
                 return null;
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
+                mToast = "Internal error, try again later";
                 return null;
             } catch (IOException e) {
                 e.printStackTrace();
+                mToast = "You are offline";
                 return null;
             }
 
@@ -216,12 +197,15 @@ public class CustomList extends LinearLayout {
 
             } catch (ParserConfigurationException e) {
                 Log.e("Error: ", e.getMessage());
+                mToast = "Internal error, try again later";
                 return null;
             } catch (SAXException e) {
                 Log.e("Error: ", e.getMessage());
+                mToast = "Internal error, try again later";
                 return null;
             } catch (IOException e) {
                 Log.e("Error: ", e.getMessage());
+                mToast = "You are offline";
                 return null;
             }
             // return XML

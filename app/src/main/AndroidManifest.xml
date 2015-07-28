@@ -34,31 +34,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.thecommuter.StopsActivity" />
         </activity>
-        <provider
-            android:name="com.example.android.thecommuter.data.SubwayProvider"
-            android:authorities="com.example.android.thecommuter.data.SubwayProvider"
-            android:exported="true"
-            android:multiprocess="true" >
-        </provider>
-        <service
-            android:name="com.example.android.thecommuter.sync.AuthenticatorService">
-            <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
-            </intent-filter>
-            <meta-data
-                android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator" />
-        </service>
-        <service
-            android:name="com.example.android.thecommuter.sync.CommuterSyncService"
-            android:exported="true"
-            android:process=":sync">
-            <intent-filter>
-                <action android:name="android.content.SyncAdapter"/>
-            </intent-filter>
-            <meta-data android:name="android.content.SyncAdapter"
-                android:resource="@xml/syncadapter" />
-        </service>
         <receiver android:process=":remote" android:name=".location.AlarmReceiver"></receiver>
     </application>
 

@@ -14,18 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.thecommuter.data.SubwayContract;
 import com.example.android.thecommuter.widgets.CustomList;
-import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
 
 /**
  * Created by Shubhang on 2/7/2015.
  */
-public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-    private final int URL_LOADER = 0;
-    private String[] mProjections = {SubwayContract._ID, SubwayContract.ARRIVAL_TIME, SubwayContract.FINAL_STATION, SubwayContract.DELAY};
-    private int[] mTo = {R.id._id, R.id.arrival_time, R.id.arrival_dest, R.id.delay};
-    private SubwayCursorAdapter mAdapter = null;
+public class ArrivalsFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,50 +88,14 @@ public class ArrivalsFragment extends Fragment implements LoaderManager.LoaderCa
             }
         }
 
-        getLoaderManager().initLoader(URL_LOADER, null, ArrivalsFragment.this);
+        String stationId = getActivity().getIntent().getExtras().getString("stationId");
 
         CustomList customList = (CustomList) rootView.findViewById(R.id.arrivals_list_view);
         customList.setContext(getActivity().getApplicationContext());
-        mAdapter = new SubwayCursorAdapter(
-                rootView.getContext(),
-                R.layout.arrivals_list_item,
-                null,
-                mProjections,
-                mTo,
-                0
-        );
-        //customList.setAdapter(mAdapter);
-
-        String stationId = getActivity().getIntent().getExtras().getString("stationId");
         customList.addViews(stationId, lineId);
 
         return rootView;
     }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        switch(id) {
-            case (URL_LOADER): {
-                return new CursorLoader(
-                        getActivity(),
-                        SubwayContract.CONTENT_URI,
-                        mProjections,
-                        null,
-                        null,
-                        null
-                );
-            }
-            default: {
-                return null;
-            }
-        }
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) { mAdapter.swapCursor(data); }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) { mAdapter.swapCursor(null); }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

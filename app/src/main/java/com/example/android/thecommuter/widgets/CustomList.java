@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.android.thecommuter.R;
 import com.example.android.thecommuter.adapters.SubwayCursorAdapter;
+import com.example.android.thecommuter.sync.CommuterSyncAdapter;
 
 import java.util.ArrayList;
 
@@ -77,6 +78,10 @@ public class CustomList extends LinearLayout {
                 addView(header);
             }
             addView(views.get(i));
+        }
+
+        if (!CommuterSyncAdapter.canSync()) {
+            removeAllViews();
         }
     }
 

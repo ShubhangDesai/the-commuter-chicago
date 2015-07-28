@@ -7,7 +7,7 @@ import android.content.Intent;
 
 import com.example.android.thecommuter.location.AlarmReceiver;
 import com.example.android.thecommuter.StopsFragment;
-import com.example.android.thecommuter.location.SubwayLocation;
+import com.example.android.thecommuter.location.Loc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -27,12 +27,12 @@ public class FavoritesManager {
     private static ArrayList<String> mStationIds = new ArrayList<>();
     private static HashMap<Integer, HashMap<Integer, Boolean>> mFavorites = new HashMap();
     private static ArrayList<Boolean> mRemove = new ArrayList();
-    private static ArrayList<SubwayLocation> mLocations = new ArrayList();
+    private static ArrayList<Loc> mLocations = new ArrayList();
     Context mContext;
 
     public FavoritesManager(Context context) {
         mContext = context;
-        mLocations.add(0, new SubwayLocation(40.461979, -88.930405));
+        mLocations.add(0, new Loc(40.461979, -88.930405));
         read();
     }
 
@@ -144,8 +144,12 @@ public class FavoritesManager {
         return -1;
     }
 
-    public static ArrayList<SubwayLocation> getLocations() {
+    public static ArrayList<Loc> getLocations() {
         return mLocations;
+    }
+
+    public static ArrayList<Boolean> getRemove() {
+        return mRemove;
     }
 
     private void write() {

@@ -56,6 +56,7 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
     // Global variables
     // Define a variable to contain a content resolver instance
     ContentResolver mContentResolver;
+    public static boolean sync = true;
 
     /**
      * Set up the sync adapter
@@ -103,6 +104,7 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
         String arrT;
         String mins;
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        sync = false;
 
         String value = extras.getString("station");
         String line = extras.getString("line");
@@ -130,10 +132,13 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            sync = false;
         } catch (ClientProtocolException e) {
             e.printStackTrace();
+            sync = false;
         } catch (IOException e) {
             e.printStackTrace();
+            sync = false;
         }
 
         try {
@@ -146,16 +151,18 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
 
         } catch (ParserConfigurationException e) {
             Log.e("Error: ", e.getMessage());
+            sync = false;
             return;
         } catch (SAXException e) {
             Log.e("Error: ", e.getMessage());
+            sync = false;
             return;
         } catch (IOException e) {
             Log.e("Error: ", e.getMessage());
+            sync = false;
             return;
         }
         // return XML
-
 
         NodeList nl = doc.getElementsByTagName("eta");
 
@@ -226,5 +233,9 @@ public class CommuterSyncAdapter extends AbstractThreadedSyncAdapter {
             final Uri uri = mContentResolver.insert(SubwayContract.CONTENT_URI, values);
             //Log.e(CommuterSyncAdapter.class.getSimpleName(), "Synced.");
         }
+    }
+
+    public static boolean canSync() {
+        return sync;
     }
 }

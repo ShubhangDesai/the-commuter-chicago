@@ -3,7 +3,6 @@ package com.example.android.thecommuter.location;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -17,8 +16,6 @@ import android.util.Log;
 
 import com.example.android.thecommuter.MainActivity;
 import com.example.android.thecommuter.R;
-import com.example.android.thecommuter.adapters.StopOnClickListener;
-import com.example.android.thecommuter.data.SubwayContract;
 import com.example.android.thecommuter.managers.FavoritesManager;
 
 import org.apache.http.HttpEntity;
@@ -58,7 +55,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         mContext = context;
         FavoritesManager favoritesManager = new FavoritesManager(context);
         GPSTracker gps = new GPSTracker(context);
-        ArrayList<SubwayLocation> locations = favoritesManager.getLocations();
+        ArrayList<Loc> locations = favoritesManager.getLocations();
         Calendar c = Calendar.getInstance();
 
         if (!favoritesManager.isEmpty()) {
@@ -66,20 +63,22 @@ public class AlarmReceiver extends BroadcastReceiver {
             Location current = new Location("Pt A");
             current.setLatitude(gps.getLatitude());
             current.setLongitude(gps.getLongitude());
-            int closest = 0;
+            int closest = 0; //Change to -1
             for (int i = 0; i < locations.size(); i++) {
-                SubwayLocation l = locations.get(i);
-                Location station = new Location("Pt B");
-                station.setLatitude(l.getLatitude());
-                station.setLongitude(l.getLongitude());
-                float distance = current.distanceTo(station);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closest = i;
+                if (!FavoritesManager.getRemove().get(i)) {
+                    Loc l = locations.get(i);
+                    Location station = new Location("Pt B");
+                    station.setLatitude(l.getLatitude());
+                    station.setLongitude(l.getLongitude());
+                    float distance = current.distanceTo(station);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closest = i;
+                    }
                 }
             }
 
-            if (minDistance == 804) {
+            if (minDistance == 804) { //Change to <
                 int line = favoritesManager.getLines().get(closest);
                 String lineTxt;
 
@@ -191,13 +190,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-                return "UnsupportedEncodingException";
+                return "Encountered UnsupportedEncodingException, try again later";
             } catch (ClientProtocolException e) {
                 e.printStackTrace();
-                return "ClientProtocolException";
+                return "Encountered ClientProtocolException, try again later";
             } catch (IOException e) {
                 e.printStackTrace();
-                return "IOException";
+                return "Connect to network to view next train";
             }
 
             try {
@@ -210,13 +209,13 @@ public class AlarmReceiver extends BroadcastReceiver {
 
             } catch (ParserConfigurationException e) {
                 Log.e("Error: ", e.getMessage());
-                return "ParserConfigurationException";
+                return "Encountered ParserConfigurationException, try again later";
             } catch (SAXException e) {
                 Log.e("Error: ", e.getMessage());
                 return e.getMessage();
             } catch (IOException e) {
                 Log.e("Error: ", e.getMessage());
-                return "IOException";
+                return "Connect to network to view next train";
             }
             // return XML
 
@@ -267,7 +266,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
                 if (totMins == 0) {
                     mins = "arriving now";
-                    totMins = 1;
+                    totMins = 2;
                 } else {
                     mins = "arriving in " + Integer.toString(totMins) + " mins";
                 }

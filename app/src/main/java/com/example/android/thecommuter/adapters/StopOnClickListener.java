@@ -61,12 +61,14 @@ public class StopOnClickListener implements View.OnClickListener  {
     };
 
     String[] mStops;
+    int[] mImages;
 
-    public StopOnClickListener(Context context, RecyclerView recyclerView, int lineId, String[] stops) {
+    public StopOnClickListener(Context context, RecyclerView recyclerView, int lineId, String[] stops, int[] images) {
         mContext = context;
         mRecyclerView = recyclerView;
         mLineId = lineId;
         mStops = stops;
+        mImages = images;
         favoritesManager = new FavoritesManager(context);
         if (lineId == -1) { favorite = true; }
     }
@@ -98,6 +100,7 @@ public class StopOnClickListener implements View.OnClickListener  {
         intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId] + " (" + lineTxt + ")");
         intent.putExtra("stationId", stationIds[mLineId][stopId]);
         intent.putExtra("lineId", mLineId);
+        intent.putExtra("image", mImages[stopId]);
         intent.putExtra("favorite", favorite);
         mContext.startActivity(intent);
     }

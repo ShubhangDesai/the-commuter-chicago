@@ -4,9 +4,13 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.android.thecommuter.location.AlarmReceiver;
 import com.example.android.thecommuter.StopsFragment;
+import com.example.android.thecommuter.location.GPSTracker;
 import com.example.android.thecommuter.location.Loc;
 
 import java.io.FileInputStream;
@@ -51,7 +55,9 @@ public class FavoritesManager {
                 PendingIntent.FLAG_ONE_SHOT);
         long firstTime = c.getTimeInMillis();
         AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-        am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        TestTask subwayTask = new TestTask();
+        //subwayTask.execute();
     }
 
     public void removeFavorite(int line, String station, int image, String stationId) {
@@ -63,6 +69,8 @@ public class FavoritesManager {
             }
         }
         mRemove.set(id, true);
+        TestTask subwayTask = new TestTask();
+        //subwayTask.execute();
         write();
     }
 
@@ -228,6 +236,41 @@ public class FavoritesManager {
                 }
             }
             return true;
+        }
+    }
+
+    private class TestTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... urls) {
+            FavoritesManager favoritesManager = new FavoritesManager(mContext);
+            GPSTracker gps = new GPSTracker(mContext);
+            ArrayList<Loc> locations = FavoritesManager.getLocations();
+            Calendar c = Calendar.getInstance();
+            ArrayList<Boolean> remove = favoritesManager.getRemove();
+
+            if (!favoritesManager.isEmpty()) {
+                float minDistance = 804;
+                Location current = new Location("Pt A");
+                current.setLatitude(gps.getLatitude());
+                current.setLongitude(gps.getLongitude());
+                int closest = 0; //Change to -1
+                for (int i = 0; i < locations.size(); i++) {
+                    //Log.e("Tag", Integer.toString(locations.size()));
+                    //Log.e("Tag", Boolean.toString(FavoritesManager.getRemove().get(i)));
+                    if (!FavoritesManager.getRemove().get(i)) {
+                        Loc l = locations.get(i);
+                        Location station = new Location("Pt B");
+                        station.setLatitude(l.getLatitude());
+                        station.setLongitude(l.getLongitude());
+                        float distance = current.distanceTo(station);
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closest = i;
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

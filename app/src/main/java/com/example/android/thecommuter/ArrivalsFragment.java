@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.android.thecommuter.widgets.CustomList;
 
@@ -29,6 +30,8 @@ public class ArrivalsFragment extends Fragment{
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) rootView.findViewById(R.id.toolbar);
         String lineId = "";
+
+        ((ImageView) rootView.findViewById(R.id.arrival_header)).setImageResource(getActivity().getIntent().getExtras().getInt("image"));
 
         long positionId = (long) getActivity().getIntent().getExtras().getInt("lineId");
         int primary = 0;

@@ -20,14 +20,16 @@ public class FavoriteOnClickListener implements View.OnClickListener {
     RecyclerView mRecyclerView;
     FavoritesManager favoritesManager;
     boolean favorite;
+    int[] mImages;
 
-    FavoriteOnClickListener(Context context, RecyclerView recyclerView, int lineId, String[] stops) {
+    FavoriteOnClickListener(Context context, RecyclerView recyclerView, int lineId, String[] stops, int[] images) {
         mContext = context;
         mRecyclerView = recyclerView;
         mLineId = lineId;
         mStops = stops;
         favoritesManager = new FavoritesManager(context);
         favorite = false;
+        mImages = images;
     }
 
     @Override
@@ -49,10 +51,10 @@ public class FavoriteOnClickListener implements View.OnClickListener {
             favoritesManager.setFavorite(mLineId, stop, true);
             ((ImageView) v).setImageResource(R.drawable.ic_star_gold);
             if (favorite) {
-                favoritesManager.addFavorite(mLineId, mStops[stopId], R.drawable.howard_small, favoritesManager
+                favoritesManager.addFavorite(mLineId, mStops[stopId], mImages[stopId], favoritesManager
                         .getStationIds().get(stopId));
             } else {
-                favoritesManager.addFavorite(mLineId, mStops[stopId], R.drawable.howard_small, StopOnClickListener.getStation
+                favoritesManager.addFavorite(mLineId, mStops[stopId], mImages[stopId], StopOnClickListener.getStation
                         (mLineId,stopId));
             };
             toast = Toast.makeText(mContext, "Added to favorites", Toast.LENGTH_SHORT);
@@ -60,10 +62,10 @@ public class FavoriteOnClickListener implements View.OnClickListener {
             favoritesManager.setFavorite(mLineId, stop, false);
             ((ImageView) v).setImageResource(R.drawable.ic_star);
             if (favorite) {
-                favoritesManager.removeFavorite(mLineId, mStops[stopId], R.drawable.howard_small, favoritesManager
+                favoritesManager.removeFavorite(mLineId, mStops[stopId], mImages[stopId], favoritesManager
                         .getStationIds().get(stopId));
             } else {
-                favoritesManager.removeFavorite(mLineId, mStops[stopId], R.drawable.howard_small, StopOnClickListener.getStation
+                favoritesManager.removeFavorite(mLineId, mStops[stopId], mImages[stopId], StopOnClickListener.getStation
                         (mLineId,stopId));
             }
             toast = Toast.makeText(mContext, "Removed from favorites", Toast.LENGTH_SHORT);

@@ -55,10 +55,10 @@ public class StopAdapter extends RecyclerView.Adapter<StopAdapter.ViewHolder> {
     @Override
     public StopAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_card_item, parent, false);
-        v.setOnClickListener(new StopOnClickListener(context, recyclerView, lineId, lines));
+        v.setOnClickListener(new StopOnClickListener(context, recyclerView, lineId, lines, images));
         ImageView star = (ImageView) v.findViewById(R.id.star);
 
-        star.setOnClickListener(new FavoriteOnClickListener(context, recyclerView, lineId, lines));
+        star.setOnClickListener(new FavoriteOnClickListener(context, recyclerView, lineId, lines, images));
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }

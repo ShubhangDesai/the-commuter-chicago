@@ -47,17 +47,6 @@ public class CustomList extends LinearLayout {
     String mStation;
     CustomList mList;
     String mToast;
-    DataSetObserver observer = new DataSetObserver() {
-        @Override
-        public void onChanged() {
-            //addViews();
-        }
-
-        @Override
-        public void onInvalidated() {
-            removeAllViews();
-        }
-    };
 
     public CustomList(Context context, AttributeSet attrs) { super(context, attrs); }
 

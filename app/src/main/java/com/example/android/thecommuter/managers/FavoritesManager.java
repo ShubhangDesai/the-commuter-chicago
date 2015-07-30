@@ -40,13 +40,13 @@ public class FavoritesManager {
         read();
     }
 
-    public void addFavorite(int line, String station, int image, String stationId) {
+    public void addFavorite(int line, String station, int image, String stationId, Loc location) {
         mLines.add(line);
         mStations.add(station);
         mImages.add(image);
         mStationIds.add(stationId);
         mRemove.add(false);
-        mLocations.add(new Loc(40.461979, -88.930405));
+        mLocations.add(location);
         write();
 
         Calendar c = Calendar.getInstance();
@@ -57,7 +57,7 @@ public class FavoritesManager {
         AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
         //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
         TestTask subwayTask = new TestTask();
-        //subwayTask.execute();
+        subwayTask.execute();
     }
 
     public void removeFavorite(int line, String station, int image, String stationId) {
@@ -70,7 +70,7 @@ public class FavoritesManager {
         }
         mRemove.set(id, true);
         TestTask subwayTask = new TestTask();
-        //subwayTask.execute();
+        subwayTask.execute();
         write();
     }
 
@@ -113,7 +113,7 @@ public class FavoritesManager {
                     mImages.remove(i);
                     mStationIds.remove(i);
                     mRemove.remove(i);
-                    //mLocations.remove(i);
+                    mLocations.remove(i);
                     i--;
                 }
                 i++;
@@ -154,7 +154,7 @@ public class FavoritesManager {
         return -1;
     }
 
-    public static ArrayList<Loc> getLocations() {
+    public ArrayList<Loc> getLocations() {
         return mLocations;
     }
 
@@ -188,6 +188,10 @@ public class FavoritesManager {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(mRemove);
 
+            fos = mContext.openFileOutput("LOCATIONS_FILE", Context.MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(mLocations);
+
             oos.close();
         } catch (Exception e) {
 
@@ -220,6 +224,10 @@ public class FavoritesManager {
             ois = new ObjectInputStream(fis);
             mRemove = (ArrayList<Boolean>) ois.readObject();
 
+            fis = mContext.openFileInput("LOCATIONS_FILE");
+            ois = new ObjectInputStream(fis);
+            mLocations = (ArrayList<Loc>) ois.readObject();
+
             ois.close();
         } catch (Exception e) {
             //nothing
@@ -244,12 +252,12 @@ public class FavoritesManager {
         protected Void doInBackground(Void... urls) {
             FavoritesManager favoritesManager = new FavoritesManager(mContext);
             GPSTracker gps = new GPSTracker(mContext);
-            ArrayList<Loc> locations = FavoritesManager.getLocations();
+            ArrayList<Loc> locations = favoritesManager.getLocations();
             Calendar c = Calendar.getInstance();
             ArrayList<Boolean> remove = favoritesManager.getRemove();
 
             if (!favoritesManager.isEmpty()) {
-                float minDistance = 804;
+                float minDistance = Float.POSITIVE_INFINITY;
                 Location current = new Location("Pt A");
                 current.setLatitude(gps.getLatitude());
                 current.setLongitude(gps.getLongitude());

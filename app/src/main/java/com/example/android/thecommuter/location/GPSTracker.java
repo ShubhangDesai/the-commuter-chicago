@@ -9,16 +9,20 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 
-public class GPSTracker extends Service implements LocationListener {
+public class GPSTracker extends Thread implements LocationListener {
 
     private final Context mContext;
 
     // flag for GPS status
     boolean isGPSEnabled = false;
+
+    Handler mUserLocationHandler = null;
 
     // flag for network status
     boolean isNetworkEnabled = false;
@@ -41,13 +45,30 @@ public class GPSTracker extends Service implements LocationListener {
 
     public GPSTracker(Context context) {
         this.mContext = context;
+        //run();
         getLocation();
     }
 
+    public void run() {
+        try {
+            Looper.prepare();
+            mUserLocationHandler = new Handler();
+            locationManager = (LocationManager) mContext.getSystemService(Service.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            Looper.loop();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public Location getLocation() {
         try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(LOCATION_SERVICE);
+            Looper.prepare();
+            mUserLocationHandler = new Handler();
+
+            locationManager = (LocationManager) mContext.getSystemService(Service.LOCATION_SERVICE);
 
             // getting GPS status
             isGPSEnabled = locationManager
@@ -96,7 +117,6 @@ public class GPSTracker extends Service implements LocationListener {
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,11 +212,6 @@ public class GPSTracker extends Service implements LocationListener {
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
     }
 
 }

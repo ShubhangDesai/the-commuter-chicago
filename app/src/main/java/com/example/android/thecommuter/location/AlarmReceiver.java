@@ -15,6 +15,7 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.example.android.thecommuter.MainActivity;
+import com.example.android.thecommuter.MetaData;
 import com.example.android.thecommuter.R;
 import com.example.android.thecommuter.managers.FavoritesManager;
 
@@ -49,24 +50,25 @@ public class AlarmReceiver extends BroadcastReceiver {
     String mStation;
     String mLine;
     int mWait = 15000; //Change this to 300000
+    MetaData metaData = new MetaData();
 
     @Override
     public void onReceive(Context context, Intent intent) {
         mContext = context;
         FavoritesManager favoritesManager = new FavoritesManager(context);
         GPSTracker gps = new GPSTracker(context);
-        ArrayList<Loc> locations = FavoritesManager.getLocations();
+        ArrayList<Loc> locations = favoritesManager.getLocations();
         Calendar c = Calendar.getInstance();
 
         if (!favoritesManager.isEmpty()) {
-            float minDistance = 804;
+            float minDistance = Float.POSITIVE_INFINITY; //change to 804
             Location current = new Location("Pt A");
             current.setLatitude(gps.getLatitude());
             current.setLongitude(gps.getLongitude());
-            int closest = 0; //Change to -1
+            int closest = -1; //Change to -1
             for (int i = 0; i < locations.size(); i++) {
-                Log.e("Tag", Integer.toString(locations.size()));
-                Log.e("Tag", Boolean.toString(FavoritesManager.getRemove().get(i)));
+                //Log.e("Tag", Integer.toString(locations.size()));
+                //Log.e("Tag", Boolean.toString(FavoritesManager.getRemove().get(i)));
                 if (!FavoritesManager.getRemove().get(i)) {
                     Loc l = locations.get(i);
                     Location station = new Location("Pt B");
@@ -80,7 +82,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
             }
 
-            if (minDistance == 804) { //Change to <
+            if (closest != -1) {
                 int line = favoritesManager.getLines().get(closest);
                 String lineTxt;
 
@@ -149,6 +151,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             long firstTime = c.getTimeInMillis() + mWait;
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        } else {
+            metaData.setRunning(false);
         }
     }
 

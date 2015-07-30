@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.android.thecommuter.MetaData;
 import com.example.android.thecommuter.location.AlarmReceiver;
 import com.example.android.thecommuter.StopsFragment;
 import com.example.android.thecommuter.location.GPSTracker;
@@ -34,6 +35,7 @@ public class FavoritesManager {
     private static ArrayList<Boolean> mRemove = new ArrayList();
     private static ArrayList<Loc> mLocations = new ArrayList();
     Context mContext;
+    MetaData metaData = new MetaData();
 
     public FavoritesManager(Context context) {
         mContext = context;
@@ -55,7 +57,9 @@ public class FavoritesManager {
                 PendingIntent.FLAG_ONE_SHOT);
         long firstTime = c.getTimeInMillis();
         AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-        //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        if (!metaData.getRunning()) {
+            //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        }
         TestTask subwayTask = new TestTask();
         subwayTask.execute();
     }

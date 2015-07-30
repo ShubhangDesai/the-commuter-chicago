@@ -78,6 +78,14 @@ public class StopOnClickListener implements View.OnClickListener  {
         stopId = mRecyclerView.getChildPosition(v);
         Intent intent = new Intent(mContext, ArrivalsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        int stop;
+        if (favorite) {
+            mLineId = favoritesManager.getLines().get(stopId);
+            stop = favoritesManager.getStation(favoritesManager.getStations().get(stopId), mLineId);
+        } else {
+            stop = stopId;
+        }
         if (mLineId == 0) {
             lineTxt = "Red";
         } else if (mLineId == 1) {
@@ -97,8 +105,9 @@ public class StopOnClickListener implements View.OnClickListener  {
         } else {
             lineTxt = "";
         }
+
         intent.putExtra(Intent.EXTRA_TEXT, mStops[stopId] + " (" + lineTxt + ")");
-        intent.putExtra("stationId", stationIds[mLineId][stopId]);
+        intent.putExtra("stationId", stationIds[mLineId][stop]);
         intent.putExtra("lineId", mLineId);
         intent.putExtra("image", mImages[stopId]);
         intent.putExtra("favorite", favorite);

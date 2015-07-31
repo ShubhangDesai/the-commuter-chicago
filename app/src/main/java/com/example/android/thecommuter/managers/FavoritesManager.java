@@ -4,8 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.example.android.thecommuter.MetaData;
@@ -35,11 +37,13 @@ public class FavoritesManager {
     private static ArrayList<Boolean> mRemove = new ArrayList();
     private static ArrayList<Loc> mLocations = new ArrayList();
     Context mContext;
-    MetaData metaData = new MetaData();
+    SharedPreferences sharedPreferences;
+
 
     public FavoritesManager(Context context) {
         mContext = context;
         read();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public void addFavorite(int line, String station, int image, String stationId, Loc location) {
@@ -57,8 +61,8 @@ public class FavoritesManager {
                 PendingIntent.FLAG_ONE_SHOT);
         long firstTime = c.getTimeInMillis();
         AlarmManager am = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-        if (!metaData.getRunning()) {
-            //am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+        if (!sharedPreferences.getBoolean("running", false)) {
+            am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
         }
         TestTask subwayTask = new TestTask();
         subwayTask.execute();
@@ -74,7 +78,7 @@ public class FavoritesManager {
         }
         mRemove.set(id, true);
         TestTask subwayTask = new TestTask();
-        subwayTask.execute();
+        //subwayTask.execute();
         write();
     }
 
@@ -192,9 +196,17 @@ public class FavoritesManager {
             oos = new ObjectOutputStream(fos);
             oos.writeObject(mRemove);
 
+            ArrayList<ArrayList<Double>> locationsList = new ArrayList<>();
+            for (Loc l : mLocations) {
+                ArrayList<Double> temp = new ArrayList<>();
+                temp.add(l.getLatitude());
+                temp.add(l.getLongitude());
+                locationsList.add(temp);
+            }
+
             fos = mContext.openFileOutput("LOCATIONS_FILE", Context.MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(mLocations);
+            oos.writeObject(locationsList);
 
             oos.close();
         } catch (Exception e) {
@@ -228,9 +240,17 @@ public class FavoritesManager {
             ois = new ObjectInputStream(fis);
             mRemove = (ArrayList<Boolean>) ois.readObject();
 
+            ArrayList<ArrayList<Double>> locationList = new ArrayList<>();
             fis = mContext.openFileInput("LOCATIONS_FILE");
             ois = new ObjectInputStream(fis);
-            mLocations = (ArrayList<Loc>) ois.readObject();
+            locationList = (ArrayList<ArrayList<Double>> ) ois.readObject();
+
+            ArrayList<Loc> tempLocList = new ArrayList<>();
+            for (ArrayList<Double> al : locationList) {
+                Loc temp = new Loc(al.get(0), al.get(1));
+                tempLocList.add(temp);
+            }
+            mLocations = tempLocList;
 
             ois.close();
         } catch (Exception e) {
@@ -261,6 +281,14 @@ public class FavoritesManager {
             ArrayList<Boolean> remove = favoritesManager.getRemove();
 
             if (!favoritesManager.isEmpty()) {
+                SharedPreferences sharedPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("running", true);
+                editor.commit();
+
+                boolean test = !sharedPreferences.getBoolean("running", false);
+
                 float minDistance = Float.POSITIVE_INFINITY;
                 Location current = new Location("Pt A");
                 current.setLatitude(gps.getLatitude());

@@ -5,9 +5,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.location.Location;
@@ -50,7 +52,6 @@ public class AlarmReceiver extends BroadcastReceiver {
     String mStation;
     String mLine;
     int mWait = 15000; //Change this to 300000
-    MetaData metaData = new MetaData();
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -59,8 +60,14 @@ public class AlarmReceiver extends BroadcastReceiver {
         GPSTracker gps = new GPSTracker(context);
         ArrayList<Loc> locations = favoritesManager.getLocations();
         Calendar c = Calendar.getInstance();
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(mContext);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         if (!favoritesManager.isEmpty()) {
+            editor.putBoolean("running", true);
+            editor.commit();
+
             float minDistance = Float.POSITIVE_INFINITY; //change to 804
             Location current = new Location("Pt A");
             current.setLatitude(gps.getLatitude());
@@ -152,7 +159,8 @@ public class AlarmReceiver extends BroadcastReceiver {
             AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
         } else {
-            metaData.setRunning(false);
+            editor.putBoolean("running", false);
+            editor.commit();
         }
     }
 

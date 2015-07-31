@@ -2,6 +2,7 @@ package com.example.android.thecommuter;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.thecommuter.adapters.LineAdapter;
 
@@ -68,6 +70,66 @@ public class AboutFragment extends Fragment {
 
                 mDrawerLayout.closeDrawers();
                 return true;
+            }
+        });
+
+        TextView international = (TextView) rootView.findViewById(R.id.international_4_0);
+        international.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://creativecommons.org/licenses/by-sa/4.0/deed.en"));
+                startActivity(intent);
+            }
+        });
+
+        TextView unported = (TextView) rootView.findViewById(R.id.unported_3_0);
+        unported.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://creativecommons.org/licenses/by-sa/3.0/deed.en"));
+                startActivity(intent);
+            }
+        });
+
+        TextView generic_2_5 = (TextView) rootView.findViewById(R.id.generic_2_5);
+        generic_2_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://creativecommons.org/licenses/by-sa/2.5/deed.en"));
+                startActivity(intent);
+            }
+        });
+
+        TextView generic_2_0 = (TextView) rootView.findViewById(R.id.generic_2_0);
+        generic_2_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://creativecommons.org/licenses/by-sa/2.0/deed.en"));
+                startActivity(intent);
+            }
+        });
+
+        TextView generic_1_0 = (TextView) rootView.findViewById(R.id.generic_1_0);
+        generic_1_0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://creativecommons.org/licenses/by-sa/1.0/deed.en"));
+                startActivity(intent);
             }
         });
 

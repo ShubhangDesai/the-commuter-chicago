@@ -89,7 +89,9 @@
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_margin="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
@@ -137,7 +139,57 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:text="All images licensed under the Creative Commons Attribution-Share Alike 3.0 Unported, 2.5 Generic, 2.0 Generic and/or 1.0 Generic license."/>
+                        android:id="@+id/test"
+                        android:text="All images licensed under one or more of the following licenses:"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:orientation="vertical">
+                    <TextView
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/international_4.0"
+                        android:layout_marginRight="8dp"
+                        android:text="Creative Commons Attribution-Share Alike 4.0 International"/>
+                    <TextView
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/unported_3.0"
+                        android:layout_marginRight="8dp"
+                        android:text="Creative Commons Attribution-Share Alike 3.0 Unported"/>
+                    <TextView
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/generic_2.5"
+                        android:layout_marginRight="8dp"
+                        android:text="Creative Commons Attribution-Share Alike 2.5 Generic"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/generic_2.0"
+                        android:layout_marginRight="8dp"
+                        android:text="Creative Commons Attribution-Share Alike 2.0 Generic"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/generic_1.0"
+                        android:layout_marginRight="8dp"
+                        android:text="Creative Commons Attribution-Share Alike 1.0 Generic"
+                        android:layout_weight="1"/>
+                        </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

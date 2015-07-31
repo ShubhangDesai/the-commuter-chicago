@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.thecommuter.R;
 import com.example.android.thecommuter.adapters.StopAdapter;
@@ -90,6 +91,11 @@ public class FavoritesFragment extends Fragment {
         String[] stops = new String[stopsArray.size()];
         for (int i = 0; i < stopsArray.size(); i++) {
             stops[i] = stopsArray.get(i);
+        }
+
+        if (stopsArray.size() == 0) {
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "You have no favorites", Toast.LENGTH_SHORT);
+            toast.show();
         }
 
         StopAdapter sa = new StopAdapter(getActivity().getApplicationContext(), icons, stops, rv, -1);

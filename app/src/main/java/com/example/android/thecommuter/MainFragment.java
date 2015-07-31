@@ -21,7 +21,7 @@ import com.example.android.thecommuter.adapters.LineAdapter;
  * Created by Shubhang on 2/16/2015.
  */
 public class MainFragment extends Fragment {
-    int[] images = {R.drawable.image_red_line, R.drawable.image_blue_line, R.drawable.brown_line, R.drawable.image_green_line, R.drawable.image_orange_line,
+    int[] images = {R.drawable.image_red_line, R.drawable.image_blue_line, R.drawable.image_brown_line, R.drawable.image_green_line, R.drawable.image_orange_line,
                 R.drawable.image_purple_line, R.drawable.image_pink_line, R.drawable.image_yellow_line};
     String[] lines = {"Red Line", "Blue Line", "Brown Line", "Green Line", "Orange Line", "Purple Line", "Pink Line", "Yellow Line"};
 

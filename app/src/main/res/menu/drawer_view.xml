@@ -25,19 +25,14 @@
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite"
             android:title="Favorites" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="About" />
     </group>
-
-    <item android:title="This app">
-        <menu>
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="Settings" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info"
-                android:title="About" />
-        </menu>
-    </item>
 
 </menu>

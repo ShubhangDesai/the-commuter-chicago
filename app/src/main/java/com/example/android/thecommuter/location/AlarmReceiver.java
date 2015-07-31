@@ -64,7 +64,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (!favoritesManager.isEmpty()) {
+        if (!favoritesManager.isEmpty() && sharedPreferences.getBoolean("notification", true)) {
             editor.putBoolean("running", true);
             editor.commit();
 

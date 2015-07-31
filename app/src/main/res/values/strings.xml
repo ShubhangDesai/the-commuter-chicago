@@ -8,6 +8,8 @@
     <string name="lines">Lines</string>
     <string name="stops">Stops</string>
     <string name="arrivals">Arrivals</string>
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
     <string-array name="lines">
         <item>Red</item>
         <item>Blue</item>

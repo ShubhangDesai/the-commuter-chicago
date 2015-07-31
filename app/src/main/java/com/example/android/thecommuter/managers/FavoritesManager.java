@@ -65,7 +65,7 @@ public class FavoritesManager {
             am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
         }
         TestTask subwayTask = new TestTask();
-        subwayTask.execute();
+        //subwayTask.execute();
     }
 
     public void removeFavorite(int line, String station, int image, String stationId) {

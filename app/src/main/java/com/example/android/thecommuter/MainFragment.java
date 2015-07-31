@@ -21,7 +21,7 @@ import com.example.android.thecommuter.adapters.LineAdapter;
  * Created by Shubhang on 2/16/2015.
  */
 public class MainFragment extends Fragment {
-    int[] images = {R.drawable.red_line, R.drawable.blue_line, R.drawable.brown_line, R.drawable.green_line, R.drawable.orange_line,
+    int[] images = {R.drawable.image_red_line, R.drawable.blue_line, R.drawable.brown_line, R.drawable.green_line, R.drawable.orange_line,
                 R.drawable.purple_line, R.drawable.pink_line, R.drawable.yellow_line};
     String[] lines = {"Red Line", "Blue Line", "Brown Line", "Green Line", "Orange Line", "Purple Line", "Pink Line", "Yellow Line"};
 
@@ -55,6 +55,12 @@ public class MainFragment extends Fragment {
 
                         if (id == R.id.nav_favorites) {
                             intent = new Intent(getActivity(), FavoritesActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_about) {
+                            intent = new Intent(getActivity(), AboutActivity.class);
+                            startActivity(intent);
+                        } else if (id == R.id.nav_settings) {
+                            intent = new Intent(getActivity(), SettingsActivity.class);
                             startActivity(intent);
                         }
 

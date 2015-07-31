@@ -34,7 +34,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.thecommuter.StopsActivity" />
         </activity>
-        <receiver android:process=":remote" android:name=".location.AlarmReceiver"></receiver>
+        <activity
+            android:name="com.example.android.thecommuter.AboutActivity"
+            android:label="@string/about" >
+        </activity>
+        <activity
+            android:name="com.example.android.thecommuter.SettingsActivity"
+            android:label="@string/settings" >
+        </activity>
+        <receiver android:name=".location.AlarmReceiver"></receiver>
     </application>
 
     <uses-permission

@@ -57,11 +57,14 @@ public class FavoritesFragment extends Fragment {
                 int id = menuItem.getItemId();
                 Intent intent;
 
-                if (id == R.id.nav_about) {
+                if (id == R.id.nav_home) {
+                    intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                } else if (id == R.id.nav_about) {
                     intent = new Intent(getActivity(), AboutActivity.class);
                     startActivity(intent);
-                } else if (id == R.id.nav_home) {
-                    intent = new Intent(getActivity(), MainActivity.class);
+                } else if (id == R.id.nav_settings) {
+                    intent = new Intent(getActivity(), SettingsActivity.class);
                     startActivity(intent);
                 }
 

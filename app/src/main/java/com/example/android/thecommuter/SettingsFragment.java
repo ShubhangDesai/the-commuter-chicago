@@ -63,7 +63,7 @@ public class SettingsFragment extends Fragment {
                         } else if (id == R.id.nav_about) {
                             intent = new Intent(getActivity(), AboutActivity.class);
                             startActivity(intent);
-                        } else if (id == R.id.home) {
+                        } else if (id == R.id.nav_home) {
                             intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                         }
@@ -93,14 +93,16 @@ public class SettingsFragment extends Fragment {
                 editor.putBoolean("notification", isChecked);
                 editor.commit();
 
-                Calendar c = Calendar.getInstance();
-                PendingIntent mAlarmSender = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0,
-                        new Intent(getActivity().getApplicationContext(), AlarmReceiver.class),
-                        PendingIntent.FLAG_ONE_SHOT);
-                long firstTime = c.getTimeInMillis();
-                AlarmManager am = (AlarmManager) getActivity().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                if (!sharedPreferences.getBoolean("running", false)) {
-                    am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+                if (isChecked) {
+                    Calendar c = Calendar.getInstance();
+                    PendingIntent mAlarmSender = PendingIntent.getBroadcast(getActivity().getApplicationContext(), 0,
+                            new Intent(getActivity().getApplicationContext(), AlarmReceiver.class),
+                            PendingIntent.FLAG_ONE_SHOT);
+                    long firstTime = c.getTimeInMillis();
+                    AlarmManager am = (AlarmManager) getActivity().getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                    if (!sharedPreferences.getBoolean("running", false)) {
+                        am.set(AlarmManager.RTC_WAKEUP, firstTime, mAlarmSender);
+                    }
                 }
             }
         });

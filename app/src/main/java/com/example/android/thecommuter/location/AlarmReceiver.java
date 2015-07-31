@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -92,34 +93,44 @@ public class AlarmReceiver extends BroadcastReceiver {
             if (closest != -1) {
                 int line = favoritesManager.getLines().get(closest);
                 String lineTxt;
+                int color = 0;
 
                 if (line == 0) {
                     mLine = "Red";
                     lineTxt = "Red";
+                    color = R.color.red_primary;
                 } else if (line == 1) {
                     mLine = "Blue";
                     lineTxt = "Blue";
+                    color = R.color.blue_primary;
                 } else if (line == 2) {
                     mLine = "Brn";
                     lineTxt = "Brown";
+                    color = R.color.brown_primary;
                 } else if (line == 3) {
                     mLine = "G";
                     lineTxt = "Green";
+                    color = R.color.green_primary;
                 } else if (line == 4) {
                     mLine = "Org";
                     lineTxt = "Orange";
+                    color = R.color.orange_primary;
                 } else if (line == 5) {
                     mLine = "P";
                     lineTxt = "Purple";
+                    color = R.color.purple_primary;
                 } else if (line == 6) {
                     mLine = "Pink";
                     lineTxt = "Pink";
+                    color = R.color.pink_primary;
                 } else if (line == 7) {
                     mLine = "Y";
                     lineTxt = "Yellow";
+                    color = R.color.yellow_primary;
                 } else {
                     mLine = "";
                     lineTxt = "";
+                    color = Color.WHITE;
                 }
 
                 mStation = favoritesManager.getStationIds().get(closest);
@@ -139,11 +150,12 @@ public class AlarmReceiver extends BroadcastReceiver {
                 NotificationManagerCompat manager = NotificationManagerCompat.from(context);
                 NotificationCompat.Style style = new NotificationCompat.BigTextStyle();
                 NotificationCompat.WearableExtender wearableExtender = new NotificationCompat.WearableExtender();
-                wearableExtender.setBackground(BitmapFactory.decodeResource(context.getResources(), R.color.primary));
+                wearableExtender.setBackground(BitmapFactory.decodeResource(context.getResources(), color));
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
                 builder.setContentIntent(contentIntent)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setColor(context.getResources().getColor(color))
+                        .setSmallIcon(R.drawable.ic_subway)
                         .setContentTitle(title)
                         .setContentText(message)
                         .setStyle(style)

@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:text="App"/>
             <View
                 android:layout_width="match_parent"
@@ -56,13 +56,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:id="@+id/time_textview"
                         android:text="Developed by Shubhang Desai"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:id="@+id/duration_textview"
                         android:text="Wakanda Labs"/>
                 </LinearLayout>
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="24dp"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:id="@+id/date_textview"
                         android:text="Version 1.0.0"/>
                 </LinearLayout>
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:text="Credits"/>
             <View
                 android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="Arrivals data from Chicago Transit Authority API"/>
                 </LinearLayout>
             </LinearLayout>
@@ -136,7 +136,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:text="All images licensed under the Creative Commons Attribution-Share Alike 3.0 Unported, 2.5 Generic, 2.0 Generic and/or 1.0 Generic license."/>
                 </LinearLayout>
             </LinearLayout>

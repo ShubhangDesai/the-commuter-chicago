@@ -61,6 +61,9 @@ public class AboutFragment extends Fragment {
                 } else if (id == R.id.nav_home) {
                     intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
+                } else if (id == R.id.nav_settings) {
+                    intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
                 }
 
                 mDrawerLayout.closeDrawers();

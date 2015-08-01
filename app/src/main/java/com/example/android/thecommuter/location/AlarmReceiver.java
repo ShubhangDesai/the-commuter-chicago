@@ -52,7 +52,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     Context mContext;
     String mStation;
     String mLine;
-    int mWait = 15000; //Change this to 300000
+    int mWait = 300000;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -69,7 +69,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             editor.putBoolean("running", true);
             editor.commit();
 
-            float minDistance = Float.POSITIVE_INFINITY; //change to 804
+            float minDistance = 804;
             Location current = new Location("Pt A");
             current.setLatitude(gps.getLatitude());
             current.setLongitude(gps.getLongitude());

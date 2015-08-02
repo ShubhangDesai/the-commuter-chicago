@@ -5,7 +5,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.android.thecommuter.widgets.HeroView
+    <com.recursionlabs.thecommuter.widgets.HeroView
         android:src="@drawable/thorndale_header"
         android:id="@+id/arrivals_header"
         android:layout_width="match_parent"

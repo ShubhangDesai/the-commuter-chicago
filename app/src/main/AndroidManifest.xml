@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.thecommuter" >
+    package="com.recursionlabs.thecommuter" >
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.android.thecommuter.MainActivity"
+            android:name="com.recursionlabs.thecommuter.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,29 +17,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.android.thecommuter.FavoritesActivity"
+            android:name="com.recursionlabs.thecommuter.FavoritesActivity"
             android:label="@string/favorites" >
         </activity>
         <activity
-            android:name="com.example.android.thecommuter.StopsActivity"
+            android:name="com.recursionlabs.thecommuter.StopsActivity"
             android:label="@string/stops" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.thecommuter.MainActivity" />
+                android:value="com.recursionlabs.thecommuter.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.android.thecommuter.ArrivalsActivity"
+            android:name="com.recursionlabs.thecommuter.ArrivalsActivity"
             android:label="@string/arrivals" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.thecommuter.StopsActivity" />
+                android:value="com.recursionlabs.thecommuter.StopsActivity" />
         </activity>
         <activity
-            android:name="com.example.android.thecommuter.AboutActivity"
+            android:name="com.recursionlabs.thecommuter.AboutActivity"
             android:label="@string/about" >
         </activity>
         <activity
-            android:name="com.example.android.thecommuter.SettingsActivity"
+            android:name="com.recursionlabs.thecommuter.SettingsActivity"
             android:label="@string/settings" >
         </activity>
         <receiver android:name=".location.AlarmReceiver"></receiver>

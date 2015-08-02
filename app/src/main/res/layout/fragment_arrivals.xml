@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <com.example.android.thecommuter.widgets.CustomList
+        <com.recursionlabs.thecommuter.widgets.CustomList
             android:id="@+id/arrivals_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

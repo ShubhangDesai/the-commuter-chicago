@@ -186,7 +186,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             String destNm;
             String arrT;
             String mins;
-            String result = "result";
+            String result = "";
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
             String value = mStation;
@@ -292,6 +292,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 if (totMins == 0) {
                     mins = "arriving now";
                     totMins = 2;
+                } else if (totMins > 120) {
+                    mins = "arriving soon";
                 } else {
                     mins = "arriving in " + Integer.toString(totMins) + " mins";
                 }

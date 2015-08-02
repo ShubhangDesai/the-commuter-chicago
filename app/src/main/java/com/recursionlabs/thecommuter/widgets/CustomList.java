@@ -130,7 +130,7 @@ public class CustomList extends LinearLayout {
             String arrT;
             String mins;
             String dly;
-            String result = "result";
+            String result = "";
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             final LayoutInflater inflater = LayoutInflater.from(mContext);
             ArrayList<View> views = new ArrayList<View>();
@@ -263,6 +263,8 @@ public class CustomList extends LinearLayout {
                 if (totMins == 0) {
                     mins = "Arriving now";
                     totMins = 2;
+                }  else if (totMins > 120) {
+                    mins = "Arriving soon";
                 } else {
                     mins = "Arriving in " + Integer.toString(totMins) + " mins";
                 }
